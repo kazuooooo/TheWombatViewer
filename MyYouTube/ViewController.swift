@@ -11,9 +11,11 @@ import UIKit
 //UITableViewDelegate : ユーザーがテーブルに何らかの操作を行ったときに実行される処理を定義
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var dataArray:NSArray = []
+
     // 空のdictionary [:]
     var cacheDic:[String:UIImage] = [:]
+    let youtubeAPIClient = YoutubeAPI()
+    var dataArray:NSArray = []
     
     @IBOutlet var tableView:UITableView!
     @IBOutlet var scrollView: UIScrollView!
@@ -89,49 +91,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        getJSON()
-    }
-
-    func getJSON(){
-//        load settings from Const
-//        let id = Const.playlistsId
-        let apiKey = Const.apiKey
-        let keyword = Const.searchKeyword
-        let maxResults = Const.maxResults
-
-//        make request
-        let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)"
-        let URL = NSURL(string:urlString)
-        let req = NSURLRequest(URL: URL!)
-
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: configuration, delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
-//        make request after completeHandler is colsure
-//        refer them
-//        http://qiita.com/tajihiro/items/332fe94a25209f1e80c1
-//        http://qiita.com/yuinchirn/items/2ebb6fed6de0c9c1c3c9
-        
-        let task = session.dataTaskWithRequest(req, completionHandler:{
-            (data, response, error) -> Void in
-            do {
-                if((error) != nil){
-                    print(error?.description)
-                }else{
-                    // serialize response data to json
-                    // try 例外処理 処理に失敗したときにnilを返す
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments ) as! NSDictionary
-                    print(json)
-                    // put json['items'](this has youtube items) to dataArray
-                    self.dataArray = json["items"] as! NSArray
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("JSON error!")
-            }
-        })
-        
-        // ↑で作ったタスクを実行
-        task.resume()
+        dataArray = youtubeAPIClient.getJSON()
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
