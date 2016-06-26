@@ -61,12 +61,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let title = cell.viewWithTag(1) as! UILabel
         title.text = itemDic["snippet"]?["title"] as? String
         
-        let pv = cell.viewWithTag(2) as! UILabel
-        pv.text = itemDic["snippet"]?["publishedAt"] as? String
-        
-        let name = cell.viewWithTag(3) as! UILabel
-        name.text = itemDic["snippet"]?["channelTitle"] as? String
-        
         let background = cell.viewWithTag(4) as! UIImageView
         let videoId = itemDic["id"]?["videoId"] as! String?
         
