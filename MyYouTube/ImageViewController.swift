@@ -26,7 +26,7 @@ class ImageViewController: UIViewController {
     
     //Indicator//
     @IBOutlet var indicator:UIActivityIndicatorView!
-
+    
     //ToMovieButton//
     @IBOutlet var toMovieButton:UIButton!
     @IBAction func toMovieButtonTapped(){
@@ -69,5 +69,13 @@ class ImageViewController: UIViewController {
             self.indicator.stopAnimating()
             })
         idx = 0
+    }
+    
+    //SaveImage//
+    //TODO: Isolate as CameraScrollControll
+    @IBOutlet var saveButton:UIButton!
+    @IBAction func saveImage(){
+        UIImageWriteToSavedPhotosAlbum((mainImage?.image!)!, nil, nil, nil);
+        loadImage()
     }
 }
