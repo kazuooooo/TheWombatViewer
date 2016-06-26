@@ -10,17 +10,41 @@ import UIKit
 // UITableViewDelegate, UITableViewDataSource プロトコルを追加これらのプロトコルの規約にあるメソッドを実装することを強制する
 //UITableViewDelegate : ユーザーがテーブルに何らかの操作を行ったときに実行される処理を定義
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-
-    // 空のdictionary [:]
+    
     var cacheDic:[String:UIImage] = [:]
     let youtubeAPIClient = YoutubeAPI()
     var dataArray:[NSDictionary] = []
     
+    //Common//
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        scrollView.delegate = self
+        
+        // callbackを変数としてselfが参照
+        // callback内でselfの変数(dataArrayとtableView)を参照しているので相互でstrong参照してしまっている
+        // のでunownedにする必要がある
+        // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html
+        youtubeAPIClient.getJSON({ [unowned self] json in
+            self.dataArray += json["items"] as! [NSDictionary]
+            self.tableView.reloadData()
+            })
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    //ToMovieButton//
+    @IBOutlet var toImageButton:UIButton!
+    @IBAction func toImageButtonTapped(){
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewControllerWithIdentifier("image_mode") as! ImageViewController
+        self.presentViewController(nextView, animated: true, completion: nil)
+    }
+    
+    //Table | ScrollView
     @IBOutlet var tableView:UITableView!
     @IBOutlet var scrollView: UIScrollView!
-    @IBOutlet var segmentControl: UISegmentedControl!
-//    TableViewの中のセルの数を決める
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
     }
@@ -46,7 +70,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             })
         }
     }
-//    TableViewのcellに表示する内容を指定するメソッド
+
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // "Cell"をIdentifierとしてUITableViewCellを取り出し
@@ -86,28 +110,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         delegate.videoId = videoId
         self.performSegueWithIdentifier("ToMovie", sender: self)
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        scrollView.delegate = self
-        
-        // callbackを変数としてselfが参照
-        // callback内でselfの変数(dataArrayとtableView)を参照しているので相互でstrong参照してしまっている
-        // のでunownedにする必要がある
-        // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html
-        youtubeAPIClient.getJSON({ [unowned self] json in
-            self.dataArray += json["items"] as! [NSDictionary]
-            self.tableView.reloadData()
-        })
-    }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    private func reloadTable(){
-        
-    }
-    
+    //SegmentControl//
+    @IBOutlet var segmentControl: UISegmentedControl!
     @IBAction func indexChanged(sender:UISegmentedControl){
         switch segmentControl.selectedSegmentIndex
         {

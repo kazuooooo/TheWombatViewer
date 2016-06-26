@@ -45,8 +45,6 @@ class YoutubeAPI:NSObject{
                     // try 例外処理 処理に失敗したときにnilを返す
                     let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments ) as! NSDictionary
                     print(json)
-                    // put json['items'](this has youtube items) to dataArray
-                    // HACK:本来はこのメソッドはjsondataを返すだけにするべきでここでテーブルをリロードするのはおかしい。
                     self.nextPageToken = json["nextPageToken"] as! String
                     callback(json)
                 }

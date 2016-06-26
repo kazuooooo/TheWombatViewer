@@ -7,7 +7,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MyYouTube" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="movie_mode" id="BYZ-38-t0r" customClass="ViewController" customModule="MyYouTube" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -104,9 +104,12 @@
                                     <action selector="indexChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="K9r-aM-VrP"/>
                                 </connections>
                             </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oF7-1I-HkC">
-                                <rect key="frame" x="254" y="16" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oF7-1I-HkC">
+                                <rect key="frame" x="249" y="16" width="56" height="30"/>
+                                <state key="normal" title="toImage"/>
+                                <connections>
+                                    <action selector="toImageButtonTapped" destination="BYZ-38-t0r" eventType="touchDown" id="qkZ-1q-eK5"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UAJ-Oi-H0G">
                                 <rect key="frame" x="248" y="20" width="59" height="38"/>
@@ -158,12 +161,50 @@
                         <outlet property="scrollView" destination="rwB-Q9-SDW" id="IXK-L7-uQd"/>
                         <outlet property="segmentControl" destination="nkp-ZO-8yA" id="6WW-dT-3hm"/>
                         <outlet property="tableView" destination="rwB-Q9-SDW" id="PSG-5w-twM"/>
+                        <outlet property="toImageButton" destination="oF7-1I-HkC" id="8Je-0Q-CHl"/>
                         <segue destination="ktQ-ZW-4vc" kind="presentation" identifier="ToMovie" id="18E-UO-UOK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="341" y="337"/>
+        </scene>
+        <!--Image View Controller-->
+        <scene sceneID="uRf-ky-dkv">
+            <objects>
+                <viewController storyboardIdentifier="image_mode" id="5t1-m1-g1b" customClass="ImageViewController" customModule="MyYouTube" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1NX-i5-hjc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mj0-7P-tsp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JYr-XB-vzz">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is Image View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cs-42-Clg">
+                                <rect key="frame" x="89" y="116" width="142" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNY-nu-Vur">
+                                <rect key="frame" x="257" y="20" width="55" height="30"/>
+                                <state key="normal" title="toMovie"/>
+                                <connections>
+                                    <action selector="toMovieButtonTapped" destination="5t1-m1-g1b" eventType="touchDown" id="kNN-zd-w1g"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="toMovieButton" destination="GNY-nu-Vur" id="9tA-RB-dae"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y4P-ZN-6qf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="922" y="1042"/>
         </scene>
         <!--Movie View Controller-->
         <scene sceneID="Edt-YC-UGb">
