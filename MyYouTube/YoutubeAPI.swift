@@ -9,17 +9,22 @@
 import Foundation
 
 class YoutubeAPI:NSObject{
-    func getJSON() -> NSArray{
-        var dataArray:NSArray = []
+    var nextPageToken:String? = nil
+    func getJSON(callback: (NSDictionary)->() ){
         //        load settings from Const
         //        let id = Const.playlistsId
         let apiKey = Const.apiKey
         let keyword = Const.searchKeyword
         let maxResults = Const.maxResults
-        
+        var urlString:String
         //        make request
-        let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)"
+        if (nextPageToken != nil) {
+            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&pageToken=\(nextPageToken!)&type=video"
+        } else {
+            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&type=video"
+        }
         let URL = NSURL(string:urlString)
+        print(URL)
         let req = NSURLRequest(URL: URL!)
         
         let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
@@ -40,16 +45,15 @@ class YoutubeAPI:NSObject{
                     let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments ) as! NSDictionary
                     print(json)
                     // put json['items'](this has youtube items) to dataArray
-                    dataArray = json["items"] as! NSArray
+                    // HACK:本来はこのメソッドはjsondataを返すだけにするべきでここでテーブルをリロードするのはおかしい。
+                    self.nextPageToken = json["nextPageToken"] as! String
+                    callback(json)
                 }
             } catch {
                 print("JSON error!")
             }
         })
-        
         // ↑で作ったタスクを実行
         task.resume()
-        return dataArray
     }
-
 }

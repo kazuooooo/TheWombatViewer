@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // 空のdictionary [:]
     var cacheDic:[String:UIImage] = [:]
     let youtubeAPIClient = YoutubeAPI()
-    var dataArray:NSArray = []
+    var dataArray:[NSDictionary] = []
     
     @IBOutlet var tableView:UITableView!
     @IBOutlet var scrollView: UIScrollView!
@@ -34,14 +34,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let contentOffset = scrollView.contentOffset.y
         // bottomの座標
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-        print("contentOffset\(contentOffset)")
-        print("maximumOffset\(maximumOffset)")
-        print("value\(maximumOffset - contentOffset)")
+
         if !isLoadingMore && (maximumOffset - contentOffset <= threshold) {
             // Get more data - API call
             self.isLoadingMore = true
             print("reach bottom")
-
+            youtubeAPIClient.getJSON({ [unowned self] json in
+                self.dataArray += json["items"] as! [NSDictionary]
+                self.tableView.reloadData()
+                self.isLoadingMore = false
+            })
         }
     }
 //    TableViewのcellに表示する内容を指定するメソッド
@@ -66,37 +68,56 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         name.text = itemDic["snippet"]?["channelTitle"] as? String
         
         let background = cell.viewWithTag(4) as! UIImageView
-        let videoId = itemDic["id"]?["videoId"] as! String
+        let videoId = itemDic["id"]?["videoId"] as! String?
+        if  (videoId != nil) {
+            
+        }else{
+            print(itemDic)
+            print("videoID nil")
+        }
+        
         // キャシュされた画像があれば使う、なければ取得
         // オプショナルバインディング
-        if let img = cacheDic[videoId] {
+        if let img = cacheDic[videoId!] {
             background.image = img
         }else{
-            let urlString = itemDic["snippet"]?["thumbnails"]?!["high"]?!["url"] as? String
-            let url = NSURL(string: urlString!);
-            let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
-            let img = UIImage(data:imageData)
-            background.image = img
-            cacheDic[videoId] = img
+            let urlString = itemDic["snippet"]!["thumbnails"]!!["high"]!!["url"] as! String
+                    
+                        let url = NSURL(string: urlString);
+                        let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
+                        let img = UIImage(data:imageData)
+                        background.image = img
+                        cacheDic[videoId!] = img
         }
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let videoId = dataArray[indexPath.row]["id"]?!["videoId"] as? String
+        let videoId = dataArray[indexPath.row]["id"]?["videoId"] as? String
         delegate.videoId = videoId
         self.performSegueWithIdentifier("ToMovie", sender: self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        dataArray = youtubeAPIClient.getJSON()
-        self.tableView.reloadData()
+        
+        // callbackを変数としてselfが参照
+        // callback内でselfの変数(dataArrayとtableView)を参照しているので相互でstrong参照してしまっている
+        // のでunownedにする必要がある
+        // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html
+        youtubeAPIClient.getJSON({ [unowned self] json in
+            self.dataArray += json["items"] as! [NSDictionary]
+            self.tableView.reloadData()
+        })
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    private func reloadTable(){
+        
     }
 }
 
