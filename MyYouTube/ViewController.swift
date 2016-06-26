@@ -69,12 +69,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let background = cell.viewWithTag(4) as! UIImageView
         let videoId = itemDic["id"]?["videoId"] as! String?
-        if  (videoId != nil) {
-            
-        }else{
-            print(itemDic)
-            print("videoID nil")
-        }
         
         // キャシュされた画像があれば使う、なければ取得
         // オプショナルバインディング
