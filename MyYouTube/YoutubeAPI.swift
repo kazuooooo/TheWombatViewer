@@ -24,7 +24,7 @@ class YoutubeAPI:NSObject{
         } else {
             urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&type=video&order=\(order!)"
         }
-        let URL = NSURL(string:urlString)
+        let URL = NSURL(string:urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
         print(URL)
         let req = NSURLRequest(URL: URL!)
         
