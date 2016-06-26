@@ -19,7 +19,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet var tableView:UITableView!
     @IBOutlet var scrollView: UIScrollView!
-    
+    @IBOutlet var segmentControl: UISegmentedControl!
 //    TableViewの中のセルの数を決める
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
@@ -118,6 +118,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     private func reloadTable(){
         
+    }
+    
+    @IBAction func indexChanged(sender:UISegmentedControl){
+        switch segmentControl.selectedSegmentIndex
+        {
+            // might add relevance column
+        case 0:
+            print("new tapped")
+            youtubeAPIClient.order = "date"
+        case 1:
+            print("popular favorite tapped")
+            youtubeAPIClient.order = "rating"
+        case 2:
+            print("favorite")
+            youtubeAPIClient.order = "viewCount" //tmp
+        default:
+            print("other tapped??")
+        }
+        youtubeAPIClient.getJSON({ [unowned self] json in
+            self.youtubeAPIClient.nextPageToken = nil
+            self.dataArray = json["items"] as! [NSDictionary]
+            self.tableView.reloadData()
+            self.isLoadingMore = false
+        })
+        self.tableView.setContentOffset(CGPointZero, animated:true)
     }
 }
 

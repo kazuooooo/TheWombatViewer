@@ -10,7 +10,8 @@ import Foundation
 
 class YoutubeAPI:NSObject{
     var nextPageToken:String? = nil
-    func getJSON(callback: (NSDictionary)->() ){
+    var order:String? = "date"
+    func getJSON(callback: (NSDictionary)->()){
         //        load settings from Const
         //        let id = Const.playlistsId
         let apiKey = Const.apiKey
@@ -19,9 +20,9 @@ class YoutubeAPI:NSObject{
         var urlString:String
         //        make request
         if (nextPageToken != nil) {
-            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&pageToken=\(nextPageToken!)&type=video"
+            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&pageToken=\(nextPageToken!)&type=video&order=\(order!)"
         } else {
-            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&type=video"
+            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&type=video&order=\(order!)"
         }
         let URL = NSURL(string:urlString)
         print(URL)
