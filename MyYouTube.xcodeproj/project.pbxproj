@@ -47,6 +47,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B9A3C4B81D1FFF8100BF5809 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */,
+				B9A3C4B31D1FDB5100BF5809 /* ImageSearchAPI.swift */,
+			);
+			name = API;
+			sourceTree = "<group>";
+		};
 		B9A4706E1D02951000313744 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +75,7 @@
 		B9A470791D02951000313744 /* MyYouTube */ = {
 			isa = PBXGroup;
 			children = (
+				B9A3C4B81D1FFF8100BF5809 /* API */,
 				B9A4707A1D02951000313744 /* AppDelegate.swift */,
 				B9A4707C1D02951000313744 /* ViewController.swift */,
 				B9A470921D02A9D800313744 /* MovieViewController.swift */,
@@ -75,9 +85,7 @@
 				B9A470861D02951000313744 /* Info.plist */,
 				B9F727D51D0D3920001E9BEB /* UIViewExtention.swift */,
 				B9E29AF01D1C29E6005582C7 /* Const.swift */,
-				B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */,
 				B9A3C4B11D1FC51300BF5809 /* ImageViewController.swift */,
-				B9A3C4B31D1FDB5100BF5809 /* ImageSearchAPI.swift */,
 			);
 			path = MyYouTube;
 			sourceTree = "<group>";

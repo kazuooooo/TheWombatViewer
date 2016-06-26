@@ -12,7 +12,7 @@ class ImageViewController: UIViewController {
     
     var imageSearchClient = ImageSearchAPI()
     var dataArray:[NSDictionary] = []
-    var idx = 0
+    var searchResultIdx = 0
     //Common//
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,16 +39,16 @@ class ImageViewController: UIViewController {
     @IBOutlet var testButton:UIButton!
     @IBOutlet var mainImage:UIImageView!
     @IBAction func loadImage(){
-        if dataArray.count == idx {
+        if dataArray.count == searchResultIdx {
             loadMoreImages()
         } else {
-            let item = dataArray[idx]
+            let item = dataArray[searchResultIdx]
             let urlString = item["link"]! as! String
             let url = NSURL(string: urlString);
             let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
             let img = UIImage(data:imageData)
             mainImage.image = img
-            idx += 1
+            searchResultIdx += 1
         }
     }
     
@@ -68,7 +68,7 @@ class ImageViewController: UIViewController {
             self.loadImage()
             self.indicator.stopAnimating()
             })
-        idx = 0
+        searchResultIdx = 0
     }
     
     //SaveImage//
