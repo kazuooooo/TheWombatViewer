@@ -11,13 +11,15 @@ import UIKit
 //UITableViewDelegate : ユーザーがテーブルに何らかの操作を行ったときに実行される処理を定義
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var dataArray:NSArray = []
+
     // 空のdictionary [:]
     var cacheDic:[String:UIImage] = [:]
+    let youtubeAPIClient = YoutubeAPI()
+    var dataArray:[NSDictionary] = []
     
     @IBOutlet var tableView:UITableView!
     @IBOutlet var scrollView: UIScrollView!
-    
+    @IBOutlet var segmentControl: UISegmentedControl!
 //    TableViewの中のセルの数を決める
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataArray.count
@@ -32,14 +34,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let contentOffset = scrollView.contentOffset.y
         // bottomの座標
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-        print("contentOffset\(contentOffset)")
-        print("maximumOffset\(maximumOffset)")
-        print("value\(maximumOffset - contentOffset)")
+
         if !isLoadingMore && (maximumOffset - contentOffset <= threshold) {
             // Get more data - API call
             self.isLoadingMore = true
             print("reach bottom")
-
+            youtubeAPIClient.getJSON({ [unowned self] json in
+                self.dataArray += json["items"] as! [NSDictionary]
+                self.tableView.reloadData()
+                self.isLoadingMore = false
+            })
         }
     }
 //    TableViewのcellに表示する内容を指定するメソッド
@@ -57,85 +61,76 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let title = cell.viewWithTag(1) as! UILabel
         title.text = itemDic["snippet"]?["title"] as? String
         
-        let pv = cell.viewWithTag(2) as! UILabel
-        pv.text = itemDic["snippet"]?["publishedAt"] as? String
-        
-        let name = cell.viewWithTag(3) as! UILabel
-        name.text = itemDic["snippet"]?["channelTitle"] as? String
-        
         let background = cell.viewWithTag(4) as! UIImageView
-        let videoId = itemDic["id"]?["videoId"] as! String
+        let videoId = itemDic["id"]?["videoId"] as! String?
+        
         // キャシュされた画像があれば使う、なければ取得
         // オプショナルバインディング
-        if let img = cacheDic[videoId] {
+        if let img = cacheDic[videoId!] {
             background.image = img
         }else{
-            let urlString = itemDic["snippet"]?["thumbnails"]?!["high"]?!["url"] as? String
-            let url = NSURL(string: urlString!);
-            let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
-            let img = UIImage(data:imageData)
-            background.image = img
-            cacheDic[videoId] = img
+            let urlString = itemDic["snippet"]!["thumbnails"]!!["high"]!!["url"] as! String
+                    
+                        let url = NSURL(string: urlString);
+                        let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
+                        let img = UIImage(data:imageData)
+                        background.image = img
+                        cacheDic[videoId!] = img
         }
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let videoId = dataArray[indexPath.row]["id"]?!["videoId"] as? String
+        let videoId = dataArray[indexPath.row]["id"]?["videoId"] as? String
         delegate.videoId = videoId
         self.performSegueWithIdentifier("ToMovie", sender: self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        getJSON()
-    }
-
-    func getJSON(){
-//        load settings from Const
-//        let id = Const.playlistsId
-        let apiKey = Const.apiKey
-        let keyword = Const.searchKeyword
-        let maxResults = Const.maxResults
-
-//        make request
-        let urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)"
-        let URL = NSURL(string:urlString)
-        let req = NSURLRequest(URL: URL!)
-
-        let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-        let session = NSURLSession(configuration: configuration, delegate: nil, delegateQueue: NSOperationQueue.mainQueue())
-//        make request after completeHandler is colsure
-//        refer them
-//        http://qiita.com/tajihiro/items/332fe94a25209f1e80c1
-//        http://qiita.com/yuinchirn/items/2ebb6fed6de0c9c1c3c9
         
-        let task = session.dataTaskWithRequest(req, completionHandler:{
-            (data, response, error) -> Void in
-            do {
-                if((error) != nil){
-                    print(error?.description)
-                }else{
-                    // serialize response data to json
-                    // try 例外処理 処理に失敗したときにnilを返す
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments ) as! NSDictionary
-                    print(json)
-                    // put json['items'](this has youtube items) to dataArray
-                    self.dataArray = json["items"] as! NSArray
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("JSON error!")
-            }
+        // callbackを変数としてselfが参照
+        // callback内でselfの変数(dataArrayとtableView)を参照しているので相互でstrong参照してしまっている
+        // のでunownedにする必要がある
+        // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html
+        youtubeAPIClient.getJSON({ [unowned self] json in
+            self.dataArray += json["items"] as! [NSDictionary]
+            self.tableView.reloadData()
         })
-        
-        // ↑で作ったタスクを実行
-        task.resume()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    private func reloadTable(){
+        
+    }
+    
+    @IBAction func indexChanged(sender:UISegmentedControl){
+        switch segmentControl.selectedSegmentIndex
+        {
+            // might add relevance column
+        case 0:
+            print("new tapped")
+            youtubeAPIClient.order = "date"
+        case 1:
+            print("popular favorite tapped")
+            youtubeAPIClient.order = "rating"
+        case 2:
+            print("favorite")
+            youtubeAPIClient.order = "viewCount" //tmp
+        default:
+            print("other tapped??")
+        }
+        youtubeAPIClient.getJSON({ [unowned self] json in
+            self.youtubeAPIClient.nextPageToken = nil
+            self.dataArray = json["items"] as! [NSDictionary]
+            self.tableView.reloadData()
+            self.isLoadingMore = false
+        })
+        self.tableView.setContentOffset(CGPointZero, animated:true)
     }
 }
 
