@@ -25,8 +25,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // のでunownedにする必要がある
         // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html
         youtubeAPIClient.getJSON({ [unowned self] json in
-            self.dataArray += json["items"] as! [NSDictionary]
-            self.tableView.reloadData()
+            self.initVideosTable(json)
             })
     }
     
@@ -58,19 +57,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let contentOffset = scrollView.contentOffset.y
         // bottomの座標
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
-
+        
         if !isLoadingMore && (maximumOffset - contentOffset <= threshold) {
             // Get more data - API call
             self.isLoadingMore = true
             print("reach bottom")
             youtubeAPIClient.getJSON({ [unowned self] json in
-                self.dataArray += json["items"] as! [NSDictionary]
-                self.tableView.reloadData()
-                self.isLoadingMore = false
-            })
+                self.reloadVideosTable(json)
+                })
         }
     }
-
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         // "Cell"をIdentifierとしてUITableViewCellを取り出し
@@ -80,7 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // dataArrayに入っている各youtubeのjsondataをDictionaryに変換して取り出し
         // 指定した行番号に対応するDataをNSDictionaryにキャストして取り出す
         // こうすることで下のように階層構造的に値を取り出せる
-        let itemDic = dataArray[indexPath.row] as! NSDictionary
+        let itemDic = dataArray[indexPath.row]
         
         let title = cell.viewWithTag(1) as! UILabel
         title.text = itemDic["snippet"]?["title"] as? String
@@ -94,12 +91,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             background.image = img
         }else{
             let urlString = itemDic["snippet"]!["thumbnails"]!!["high"]!!["url"] as! String
-                    
-                        let url = NSURL(string: urlString);
-                        let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
-                        let img = UIImage(data:imageData)
-                        background.image = img
-                        cacheDic[videoId!] = img
+            
+            let url = NSURL(string: urlString);
+            let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
+            let img = UIImage(data:imageData)
+            background.image = img
+            cacheDic[videoId!] = img
         }
         return cell
     }
@@ -116,7 +113,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBAction func indexChanged(sender:UISegmentedControl){
         switch segmentControl.selectedSegmentIndex
         {
-            // might add relevance column
+        // might add relevance column
         case 0:
             print("new tapped")
             youtubeAPIClient.order = "date"
@@ -129,13 +126,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         default:
             print("other tapped??")
         }
-        youtubeAPIClient.getJSON({ [unowned self] json in
-            self.youtubeAPIClient.nextPageToken = nil
-            self.dataArray = json["items"] as! [NSDictionary]
-            self.tableView.reloadData()
-            self.isLoadingMore = false
-        })
+        youtubeAPIClient.getJSON({ [unowned self] json -> Void in
+            self.initVideosTable(json)
+            })
         self.tableView.setContentOffset(CGPointZero, animated:true)
+    }
+    
+    
+    //loadVideos//
+    private func initVideosTable(json:NSDictionary){
+        self.youtubeAPIClient.nextPageToken = nil
+        self.dataArray = json["items"] as! [NSDictionary]
+        self.tableView.reloadData()
+        self.isLoadingMore = false
+    }
+    
+    private func reloadVideosTable(json:NSDictionary){
+        self.dataArray += json["items"] as! [NSDictionary]
+        self.tableView.reloadData()
+        self.isLoadingMore = false
     }
 }
 
