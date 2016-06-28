@@ -15,7 +15,7 @@ class ImageSearchAPI:NSObject{
     let cx = Const.csecx
     
     func getImages(callback: (NSDictionary)->()){
-
+        
         let urlString:String = "https://www.googleapis.com/customsearch/v1?q=\(keyword)&cx=\(cx)&searchType=image&key=\(apiKey)&start=\(targetIdx)"
         let URL = NSURL(string:urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
         let req = NSURLRequest(URL: URL!)
@@ -28,8 +28,6 @@ class ImageSearchAPI:NSObject{
                 if((error) != nil){
                     print(error?.description)
                 }else{
-                    // serialize response data to json
-                    // try 例外処理 処理に失敗したときにnilを返す
                     let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments ) as! NSDictionary
                     callback(json)
                     self.targetIdx += 10

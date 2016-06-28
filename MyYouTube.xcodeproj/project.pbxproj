@@ -10,6 +10,7 @@
 		B955DE2D1D1EDDD1008B87A1 /* YoutubeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */; };
 		B9A3C4B21D1FC51300BF5809 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C4B11D1FC51300BF5809 /* ImageViewController.swift */; };
 		B9A3C4B41D1FDB5100BF5809 /* ImageSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C4B31D1FDB5100BF5809 /* ImageSearchAPI.swift */; };
+		B9A3C4BB1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C4BA1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift */; };
 		B9A4707B1D02951000313744 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4707A1D02951000313744 /* AppDelegate.swift */; };
 		B9A4707D1D02951000313744 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4707C1D02951000313744 /* ViewController.swift */; };
 		B9A470801D02951000313744 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9A4707E1D02951000313744 /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 		B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeAPI.swift; sourceTree = "<group>"; };
 		B9A3C4B11D1FC51300BF5809 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		B9A3C4B31D1FDB5100BF5809 /* ImageSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSearchAPI.swift; sourceTree = "<group>"; };
+		B9A3C4BA1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerUtil.swift; sourceTree = "<group>"; };
 		B9A470771D02951000313744 /* MyYouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyYouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A4707A1D02951000313744 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A4707C1D02951000313744 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		B9A3C4B91D21733500BF5809 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				B9A3C4BA1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
 		B9A4706E1D02951000313744 = {
 			isa = PBXGroup;
 			children = (
@@ -75,6 +85,7 @@
 		B9A470791D02951000313744 /* MyYouTube */ = {
 			isa = PBXGroup;
 			children = (
+				B9A3C4B91D21733500BF5809 /* Util */,
 				B9A3C4B81D1FFF8100BF5809 /* API */,
 				B9A4707A1D02951000313744 /* AppDelegate.swift */,
 				B9A4707C1D02951000313744 /* ViewController.swift */,
@@ -164,6 +175,7 @@
 			files = (
 				B955DE2D1D1EDDD1008B87A1 /* YoutubeAPI.swift in Sources */,
 				B9A4707D1D02951000313744 /* ViewController.swift in Sources */,
+				B9A3C4BB1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift in Sources */,
 				B9A3C4B41D1FDB5100BF5809 /* ImageSearchAPI.swift in Sources */,
 				B9A4707B1D02951000313744 /* AppDelegate.swift in Sources */,
 				B9A3C4B21D1FC51300BF5809 /* ImageViewController.swift in Sources */,
