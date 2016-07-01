@@ -22,6 +22,7 @@ class ImageViewController: UIViewController {
         indicator.startAnimating()
         initImages()
         initVals()
+        imageContainerView.backgroundColor = UIColor.redColor()
     }
     
     override func didReceiveMemoryWarning() {
@@ -89,17 +90,10 @@ class ImageViewController: UIViewController {
         //recognize state
         switch recognizer.state {
         case .Began:
-            print("UIGestureRecognizerState.Began")
-            // initialize touch pos of view
             touchStartPosOfView = UIPanGestureRecognizerUtil.touchPosOfView(recognizer)
-            print("touchPosofView:\(touchStartPosOfView)")
         case .Changed:
-            print("StateChanging")
             centerOfImage = UIPanGestureRecognizerUtil.centerOfView(recognizer)
-            print(self.mainImage.center.x)
-            //dragging()
         case .Ended:
-            print("UIGestureRecognizerState.Ended")
             onEndDrag(UIPanGestureRecognizerUtil.centerOfView(recognizer))
         default:
             break;
@@ -109,69 +103,21 @@ class ImageViewController: UIViewController {
         UIPanGestureRecognizerUtil.dragView(self, recognizer: recognizer)
     }
     
-    
-    //Animations//
+    //Animation called on end drag
     func onEndDrag(dragEndPoint:CGPoint){
         let nopeBorderX:CGFloat = viewWidth! * 0.2
         let likeBorderX:CGFloat = viewWidth! * 0.8
         switch dragEndPoint.x {
         case 0...(nopeBorderX):
-            nopeAnimation()
+            ImageAnimation.nopeAnimation(mainImage, viewController: self, resetImage: {[unowned self] void in self.resetImage()})
         case (likeBorderX)...viewWidth!:
-            likeAnimation()
+            ImageAnimation.likeAnimation(mainImage, viewController: self, resetImage: {[unowned self] void in self.resetImage()})
         default:
-            returnAnimation(dragEndPoint)
+            ImageAnimation.returnAnimation(dragEndPoint, imageContainerInitialPos: imageContainerInitialPos, imageContainerView: imageContainerView)
         }
     }
-    @IBOutlet var likeButton:UIButton!
-    @IBAction func likeTapped(){
-        likeAnimation()
-        UIImageWriteToSavedPhotosAlbum((mainImage?.image!)!, nil, nil, nil);
-    }
     
-    @IBOutlet var nopeButton:UIButton!
-    @IBAction func nopeTapped(){
-        nopeAnimation()
-    }
-    
-    
-    func likeAnimation(){
-        print("like")
-        print(mainImage.center.x)
-        print(mainImage.center.y)
-        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {
-            self.mainImage.center.x += self.view.bounds.width
-            }, completion:  {
-                (value: Bool) in
-                self.resetImage()
-        })
-    }
-    
-    func nopeAnimation(){
-        print("nope")
-        UIView.animateWithDuration(0.2, delay: 0, options: .CurveEaseIn, animations: {
-            self.mainImage.center.x -= self.view.bounds.width
-            }, completion:  {
-                (value: Bool) in
-                self.resetImage()
-        })
-    }
-    
-    func returnAnimation(dragEndPoint:CGPoint){
-        print("return")
-        imageContainerView.backgroundColor = UIColor.redColor()
-        let returnVecX = dragEndPoint.x - imageContainerInitialPos!.x
-        let returnVecY = dragEndPoint.y - imageContainerInitialPos!.y
-        print("dragEndpoint \(dragEndPoint)")
-        print("imageInitialpos \(imageInitialPos)")
-        print("returnX\(returnVecX)")
-        print("returnY\(returnVecY)")
-        UIView.animateWithDuration(0.5, delay: 0, options: .CurveEaseIn, animations: {
-            self.imageContainerView.center.x -= returnVecX
-            self.imageContainerView.center.y -= returnVecY
-            }, completion: nil)
-    }
-    
+    //resetImage
     func resetImage(){
         print("reest")
         loadImage()

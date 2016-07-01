@@ -194,13 +194,6 @@
                                     <action selector="toMovieButtonTapped" destination="5t1-m1-g1b" eventType="touchDown" id="kNN-zd-w1g"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PXI-rL-jex">
-                                <rect key="frame" x="24" y="444" width="37" height="30"/>
-                                <state key="normal" title="Nope"/>
-                                <connections>
-                                    <action selector="nopeTapped" destination="5t1-m1-g1b" eventType="touchDown" id="2mp-Dn-0C3"/>
-                                </connections>
-                            </button>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="c09-im-ycU">
                                 <rect key="frame" x="142" y="260" width="37" height="37"/>
                             </activityIndicatorView>
@@ -230,13 +223,6 @@
                                     <outletCollection property="gestureRecognizers" destination="K3x-km-FVo" appends="YES" id="UHz-ZN-TfR"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="69d-mn-Bsx">
-                                <rect key="frame" x="257" y="444" width="31" height="30"/>
-                                <state key="normal" title="LIKE"/>
-                                <connections>
-                                    <action selector="likeTapped" destination="5t1-m1-g1b" eventType="touchDown" id="hck-b7-cef"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
@@ -245,9 +231,7 @@
                     <connections>
                         <outlet property="imageContainerView" destination="aTW-Ks-yQ8" id="oHp-G7-YMA"/>
                         <outlet property="indicator" destination="c09-im-ycU" id="Br5-Sv-VtO"/>
-                        <outlet property="likeButton" destination="69d-mn-Bsx" id="TrR-qe-bQB"/>
                         <outlet property="mainImage" destination="Lpg-qH-b48" id="pwq-B2-nMK"/>
-                        <outlet property="nopeButton" destination="PXI-rL-jex" id="Ntd-kU-mr2"/>
                         <outlet property="toMovieButton" destination="GNY-nu-Vur" id="9tA-RB-dae"/>
                     </connections>
                 </viewController>
