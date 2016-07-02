@@ -7,18 +7,19 @@
 //
 
 import UIKit
+import RealmSwift
 
 class MovieViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet var webview:UIWebView!
     @IBOutlet var indicator:UIActivityIndicatorView!
-    
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let urlString = "https://www.youtube.com/watch?v=" + delegate.videoId!
         let url = NSURL(string: urlString)
         let request = NSURLRequest(URL: url!)
@@ -45,14 +46,25 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Add Favorite
+    let realm = try! Realm()
+    @IBAction func favoriteTapped(sender:UIButton){
+        saveFavoriteVideos()
     }
-    */
-
+    
+    private func saveFavoriteVideos(){
+        var favoriteVideos:FavoriteVideos? = realm.objects(FavoriteVideos).first
+        let video = Video()
+        let videoId = delegate.videoId!
+        video.videoId = videoId
+        // First or Initialize
+        if (favoriteVideos == nil) {
+            favoriteVideos = FavoriteVideos()
+        }
+        try! realm.write{
+            favoriteVideos!.videos.append(video)
+            realm.add(favoriteVideos!)
+        }
+        print(favoriteVideos)
+    }
 }
