@@ -7,18 +7,25 @@
 //
 
 import Foundation
+import SwiftyJSON
+import RealmSwift
+import ObjectMapper
 
 class YoutubeAPI:NSObject{
     var nextPageToken:String? = nil
-    var order:String? = "date"
-    func getJSON(callback: (NSDictionary)->()){
-        //        load settings from Const
-        //        let id = Const.playlistsId
-        let apiKey = Const.apiKey
+    var order:String? = "relevance"
+    static let ORDER_RELEVANCE:String = "relevance"
+    static let ORDER_DATE:String      = "date"
+    static let ORDER_RATING:String    = "rating"
+    static let ORDER_FAVORITE:String    = "favorite"
+    let apiKey = Const.apiKey
+    
+    func getVideosJSON(callback: (JSON)->()){
+        
         let keyword = Const.searchKeyword
         let maxResults = Const.maxResults
+        
         var urlString:String
-        //        make request
         if (nextPageToken != nil) {
             urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&pageToken=\(nextPageToken!)&type=video&order=\(order!)"
         } else {
@@ -41,18 +48,41 @@ class YoutubeAPI:NSObject{
                 if((error) != nil){
                     print(error?.description)
                 }else{
-                    // serialize response data to json
-                    // try 例外処理 処理に失敗したときにnilを返す
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments ) as! NSDictionary
-                    print(json)
-                    self.nextPageToken = json["nextPageToken"] as! String
+                    let json = JSON(try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments ))
+                    self.nextPageToken = json["nextPageToken"].stringValue as String
                     callback(json)
                 }
             } catch {
                 print("JSON error!")
             }
         })
-        // ↑で作ったタスクを実行
         task.resume()
+    }
+    
+    func getFavoriteVideosJson(callback: ([Video])->()){
+        //Load FavoriteVideos
+        let realm = try! Realm()
+        let favoriteVideos = realm.objects(Video.self)
+        var videos:[Video] = []
+        debugPrint("FAVORITEVIEOES\(favoriteVideos)")
+        debugPrint("FAVORITEVIEOESCOUNT\(favoriteVideos.count)")
+        if(favoriteVideos.count > 0){
+            for i in 0...(favoriteVideos.count - 1){
+                print("INDEX\(i)")
+                print("VIDEOID\(i)")
+                debugPrint(favoriteVideos[i].videoId)
+                print("TITLE\(i)")
+                debugPrint(favoriteVideos[i].title)
+                print("URL\(i)")
+                debugPrint(favoriteVideos[i].thumbnailURL)
+                var video = Video()
+                video.videoId = favoriteVideos[i].videoId
+                video.title = favoriteVideos[i].title
+                video.thumbnailURL = favoriteVideos[i].thumbnailURL
+                videos.append(video)
+            }
+            debugPrint(videos)
+        }
+        callback(videos)
     }
 }

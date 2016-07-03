@@ -8,12 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		9B554EC15EF7C9CFC4774A2D /* Pods_MyYouTube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1B03339D9260EF3ABC0D3F /* Pods_MyYouTube.framework */; };
+		B920E7261D2AA52F00ADE73F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = B920E7251D2AA52F00ADE73F /* Video.swift */; };
+		B920E7291D2BF87F00ADE73F /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B920E7281D2BF87F00ADE73F /* Dog.swift */; };
 		B955DE2D1D1EDDD1008B87A1 /* YoutubeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */; };
 		B9A3C4B21D1FC51300BF5809 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C4B11D1FC51300BF5809 /* ImageViewController.swift */; };
 		B9A3C4B41D1FDB5100BF5809 /* ImageSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C4B31D1FDB5100BF5809 /* ImageSearchAPI.swift */; };
 		B9A3C4BB1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C4BA1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift */; };
 		B9A3C4BE1D26B14500BF5809 /* ImageAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C4BD1D26B14500BF5809 /* ImageAnimation.swift */; };
-		B9A3C52D1D27EEF200BF5809 /* FavoriteVideos.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C52C1D27EEF200BF5809 /* FavoriteVideos.swift */; };
+		B9A3C52D1D27EEF200BF5809 /* FavoriteVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A3C52C1D27EEF200BF5809 /* FavoriteVideo.swift */; };
 		B9A4707B1D02951000313744 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4707A1D02951000313744 /* AppDelegate.swift */; };
 		B9A4707D1D02951000313744 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A4707C1D02951000313744 /* ViewController.swift */; };
 		B9A470801D02951000313744 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9A4707E1D02951000313744 /* Main.storyboard */; };
@@ -26,12 +28,14 @@
 
 /* Begin PBXFileReference section */
 		8E4BC19FF5631BD6B0A90AE7 /* Pods-MyYouTube.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyYouTube.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyYouTube/Pods-MyYouTube.debug.xcconfig"; sourceTree = "<group>"; };
+		B920E7251D2AA52F00ADE73F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		B920E7281D2BF87F00ADE73F /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeAPI.swift; sourceTree = "<group>"; };
 		B9A3C4B11D1FC51300BF5809 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		B9A3C4B31D1FDB5100BF5809 /* ImageSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSearchAPI.swift; sourceTree = "<group>"; };
 		B9A3C4BA1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerUtil.swift; sourceTree = "<group>"; };
 		B9A3C4BD1D26B14500BF5809 /* ImageAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAnimation.swift; sourceTree = "<group>"; };
-		B9A3C52C1D27EEF200BF5809 /* FavoriteVideos.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteVideos.swift; sourceTree = "<group>"; };
+		B9A3C52C1D27EEF200BF5809 /* FavoriteVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteVideo.swift; sourceTree = "<group>"; };
 		B9A470771D02951000313744 /* MyYouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyYouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A4707A1D02951000313744 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A4707C1D02951000313744 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -65,6 +69,16 @@
 				DBDFC931350B7B0B7EA32826 /* Pods-MyYouTube.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		B920E7271D2AC32E00ADE73F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B9A3C52C1D27EEF200BF5809 /* FavoriteVideo.swift */,
+				B920E7251D2AA52F00ADE73F /* Video.swift */,
+				B920E7281D2BF87F00ADE73F /* Dog.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 		B9A3C4B81D1FFF8100BF5809 /* API */ = {
@@ -113,6 +127,7 @@
 		B9A470791D02951000313744 /* MyYouTube */ = {
 			isa = PBXGroup;
 			children = (
+				B920E7271D2AC32E00ADE73F /* Models */,
 				B9A3C4BC1D26B12600BF5809 /* Helpers */,
 				B9A3C4B91D21733500BF5809 /* Util */,
 				B9A3C4B81D1FFF8100BF5809 /* API */,
@@ -126,7 +141,6 @@
 				B9F727D51D0D3920001E9BEB /* UIViewExtention.swift */,
 				B9E29AF01D1C29E6005582C7 /* Const.swift */,
 				B9A3C4B11D1FC51300BF5809 /* ImageViewController.swift */,
-				B9A3C52C1D27EEF200BF5809 /* FavoriteVideos.swift */,
 			);
 			path = MyYouTube;
 			sourceTree = "<group>";
@@ -265,13 +279,15 @@
 				B955DE2D1D1EDDD1008B87A1 /* YoutubeAPI.swift in Sources */,
 				B9A4707D1D02951000313744 /* ViewController.swift in Sources */,
 				B9A3C4BB1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift in Sources */,
-				B9A3C52D1D27EEF200BF5809 /* FavoriteVideos.swift in Sources */,
+				B9A3C52D1D27EEF200BF5809 /* FavoriteVideo.swift in Sources */,
 				B9A3C4B41D1FDB5100BF5809 /* ImageSearchAPI.swift in Sources */,
 				B9A3C4BE1D26B14500BF5809 /* ImageAnimation.swift in Sources */,
 				B9A4707B1D02951000313744 /* AppDelegate.swift in Sources */,
+				B920E7261D2AA52F00ADE73F /* Video.swift in Sources */,
 				B9A3C4B21D1FC51300BF5809 /* ImageViewController.swift in Sources */,
 				B9A470931D02A9D800313744 /* MovieViewController.swift in Sources */,
 				B9F727D61D0D3920001E9BEB /* UIViewExtention.swift in Sources */,
+				B920E7291D2BF87F00ADE73F /* Dog.swift in Sources */,
 				B9E29AF11D1C29E6005582C7 /* Const.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

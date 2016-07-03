@@ -8,11 +8,7 @@
 
 import RealmSwift
 
-class FavoriteVideos: Object {
-    dynamic var testValue = ""
-    let videos = List<Video>()
-}
-
-class Video: Object {
-    dynamic var videoId = ""
+class Dog: Object {
+    dynamic var name = ""
+    dynamic var age = 0
 }

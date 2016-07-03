@@ -7,26 +7,22 @@
 //
 
 import UIKit
-// UITableViewDelegate, UITableViewDataSource プロトコルを追加これらのプロトコルの規約にあるメソッドを実装することを強制する
-//UITableViewDelegate : ユーザーがテーブルに何らかの操作を行ったときに実行される処理を定義
+import SwiftyJSON
+import ObjectMapper
+
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var cacheDic:[String:UIImage] = [:]
     let youtubeAPIClient = YoutubeAPI()
-    var dataArray:[NSDictionary] = []
+//    var dataArray:[JSON] = []
+    var dataArray:[Video] = []
+    
     
     //Common//
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        
-        // callbackを変数としてselfが参照
-        // callback内でselfの変数(dataArrayとtableView)を参照しているので相互でstrong参照してしまっている
-        // のでunownedにする必要がある
-        // https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html
-        youtubeAPIClient.getJSON({ [unowned self] json in
-            self.initVideosTable(json)
-            })
+        setDataBySearch(YoutubeAPI.ORDER_RELEVANCE)
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,8 +58,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // Get more data - API call
             self.isLoadingMore = true
             print("reach bottom")
-            youtubeAPIClient.getJSON({ [unowned self] json in
-                self.reloadVideosTable(json)
+            youtubeAPIClient.getVideosJSON({ [unowned self] json in
+                let videos = self.extractVideosFromJson(json)
+                self.initVideosTable(videos)
                 })
         }
     }
@@ -77,22 +74,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // dataArrayに入っている各youtubeのjsondataをDictionaryに変換して取り出し
         // 指定した行番号に対応するDataをNSDictionaryにキャストして取り出す
         // こうすることで下のように階層構造的に値を取り出せる
-        let itemDic = dataArray[indexPath.row]
+        let video = dataArray[indexPath.row]
         
         let title = cell.viewWithTag(1) as! UILabel
-        title.text = itemDic["snippet"]?["title"] as? String
+
+        title.text = video.title
         
         let background = cell.viewWithTag(4) as! UIImageView
-        let videoId = itemDic["id"]?["videoId"] as! String?
+        
+        let videoId = video.videoId
         
         // キャシュされた画像があれば使う、なければ取得
         // オプショナルバインディング
         if let img = cacheDic[videoId!] {
             background.image = img
         }else{
-            let urlString = itemDic["snippet"]!["thumbnails"]!!["high"]!!["url"] as! String
-            
-            let url = NSURL(string: urlString);
+            let urlString = video.thumbnailURL
+            let url = NSURL(string: urlString!);
             let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
             let img = UIImage(data:imageData)
             background.image = img
@@ -103,8 +101,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let videoId = dataArray[indexPath.row]["id"]?["videoId"] as? String
-        delegate.videoId = videoId
+        let videoItem = dataArray[indexPath.row]
+        //このvideoItemにはitemのJSONをそのまま入れる必要あり
+        delegate.currentVideo = videoItem
+        print("SELECT VIDEOITEM\(videoItem)")
         self.performSegueWithIdentifier("ToMovie", sender: self)
     }
     
@@ -115,36 +115,61 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         {
         // might add relevance column
         case 0:
-            print("new tapped")
-            youtubeAPIClient.order = "date"
+            setDataBySearch(YoutubeAPI.ORDER_RELEVANCE)
         case 1:
-            print("popular favorite tapped")
-            youtubeAPIClient.order = "rating"
+            setDataBySearch(YoutubeAPI.ORDER_DATE)
         case 2:
-            print("favorite")
-            youtubeAPIClient.order = "viewCount" //tmp
+            setDataBySearch(YoutubeAPI.ORDER_RATING)
+        case 3:
+            setDataByFavorite()
         default:
             print("other tapped??")
         }
-        youtubeAPIClient.getJSON({ [unowned self] json -> Void in
-            self.initVideosTable(json)
-            })
         self.tableView.setContentOffset(CGPointZero, animated:true)
     }
     
     
+    private func setDataBySearch(order:String){
+        setORDER(order)
+        youtubeAPIClient.getVideosJSON({ [unowned self] json -> Void in
+            let videos = self.extractVideosFromJson(json)
+            self.initVideosTable(videos)
+            })
+    }
+    
+    private func setDataByFavorite(){
+        setORDER(YoutubeAPI.ORDER_FAVORITE)
+        youtubeAPIClient.getFavoriteVideosJson({[unowned self] videos -> Void in
+            self.initVideosTable(videos)
+            })
+    }
+    
+    //
+    private func extractVideosFromJson(rawJson:JSON) -> [Video]{
+        let itemsJson = rawJson["items"]
+        var videos:[Video] = []
+        for (index,subJson):(String, JSON) in itemsJson {
+            let video:Video = Mapper<Video>().map(subJson.rawValue)!
+            videos.append(video)
+        }
+        return videos
+    }
     //loadVideos//
-    private func initVideosTable(json:NSDictionary){
+    private func initVideosTable(videos:[Video]){
         self.youtubeAPIClient.nextPageToken = nil
-        self.dataArray = json["items"] as! [NSDictionary]
+        self.dataArray = videos
         self.tableView.reloadData()
         self.isLoadingMore = false
     }
     
-    private func reloadVideosTable(json:NSDictionary){
-        self.dataArray += json["items"] as! [NSDictionary]
+    private func reloadVideosTable(videos:[Video]){
+        self.dataArray += videos
         self.tableView.reloadData()
         self.isLoadingMore = false
+    }
+    
+    private func setORDER(order:String){
+        youtubeAPIClient.order = order
     }
 }
 

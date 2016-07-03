@@ -8,19 +8,21 @@
 
 import UIKit
 import RealmSwift
+import SwiftyJSON
 
 class MovieViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet var webview:UIWebView!
     @IBOutlet var indicator:UIActivityIndicatorView!
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
+    var video:Video? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
-        let urlString = "https://www.youtube.com/watch?v=" + delegate.videoId!
+        video =  delegate.currentVideo
+        let videoId = video?.videoId
+        let urlString = "https://www.youtube.com/watch?v=" + videoId!
         let url = NSURL(string: urlString)
         let request = NSURLRequest(URL: url!)
         webview.loadRequest(request)
@@ -53,18 +55,22 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     }
     
     private func saveFavoriteVideos(){
-        var favoriteVideos:FavoriteVideos? = realm.objects(FavoriteVideos).first
-        let video = Video()
-        let videoId = delegate.videoId!
-        video.videoId = videoId
-        // First or Initialize
-        if (favoriteVideos == nil) {
-            favoriteVideos = FavoriteVideos()
-        }
+        let favoriteVideo = Video()
+        favoriteVideo.videoId = (video?.videoId)!
+        favoriteVideo.title = video?.title
+        favoriteVideo.thumbnailURL = video?.thumbnailURL
+        debugPrint("save \(favoriteVideo)")
         try! realm.write{
-            favoriteVideos!.videos.append(video)
-            realm.add(favoriteVideos!)
+            realm.add(favoriteVideo)
         }
-        print(favoriteVideos)
+        print(realm.objects(Video.self))
+    }
+    
+    @IBOutlet var deleteAllButton:UIButton!
+    @IBAction func deleteTapped(sender:UIButton){
+        try! realm.write{
+            realm.deleteAll()
+        }
+        print(realm.objects(Video.self))
     }
 }

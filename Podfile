@@ -6,4 +6,6 @@ target 'MyYouTube' do
   use_frameworks!
   # Pods for MyYouTube
   pod 'RealmSwift'
+  pod 'SwiftyJSON'
+  pod 'ObjectMapper', '~> 1.3'
 end
