@@ -51,10 +51,10 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     // Add Favorite
     let realm = try! Realm()
     @IBAction func favoriteTapped(sender:UIButton){
-        saveFavoriteVideos()
+        saveAsFavoriteVideo()
     }
     
-    private func saveFavoriteVideos(){
+    private func saveAsFavoriteVideo(){
         let favoriteVideo = Video()
         favoriteVideo.videoId = (video?.videoId)!
         favoriteVideo.title = video?.title

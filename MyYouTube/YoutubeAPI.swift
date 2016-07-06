@@ -13,7 +13,7 @@ import ObjectMapper
 
 class YoutubeAPI:NSObject{
     var nextPageToken:String? = nil
-    var order:String? = "relevance"
+    var order:String = "relevance"
     static let ORDER_RELEVANCE:String = "relevance"
     static let ORDER_DATE:String      = "date"
     static let ORDER_RATING:String    = "rating"
@@ -27,9 +27,9 @@ class YoutubeAPI:NSObject{
         
         var urlString:String
         if (nextPageToken != nil) {
-            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&pageToken=\(nextPageToken!)&type=video&order=\(order!)"
+            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&pageToken=\(nextPageToken!)&type=video&order=\(order)"
         } else {
-            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&type=video&order=\(order!)"
+            urlString = "https://www.googleapis.com/youtube/v3/search?part=snippet&q=\(keyword)&maxResults=\(maxResults)&key=\(apiKey)&type=video&order=\(order)"
         }
         let URL = NSURL(string:urlString.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
         print(URL)
