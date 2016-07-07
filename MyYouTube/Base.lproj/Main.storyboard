@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5t1-m1-g1b">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
@@ -93,9 +93,10 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="FJD-uf-Utc"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-ZO-8yA">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="nkp-ZO-8yA">
                                 <rect key="frame" x="14" y="66" width="293" height="29"/>
                                 <segments>
+                                    <segment title="Default"/>
                                     <segment title="New"/>
                                     <segment title="Popular"/>
                                     <segment title="Favorite"/>
@@ -118,7 +119,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movies" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hnq-nE-efm">
                                 <rect key="frame" x="124" y="20" width="72" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -159,7 +160,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="scrollView" destination="rwB-Q9-SDW" id="IXK-L7-uQd"/>
-                        <outlet property="segmentControl" destination="nkp-ZO-8yA" id="6WW-dT-3hm"/>
+                        <outlet property="segmentControl" destination="nkp-ZO-8yA" id="jac-0N-F0d"/>
                         <outlet property="tableView" destination="rwB-Q9-SDW" id="PSG-5w-twM"/>
                         <outlet property="toImageButton" destination="oF7-1I-HkC" id="8Je-0Q-CHl"/>
                         <segue destination="ktQ-ZW-4vc" kind="presentation" identifier="ToMovie" id="18E-UO-UOK"/>
@@ -184,7 +185,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="This is Image View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7cs-42-Clg">
                                 <rect key="frame" x="89" y="116" width="142" height="20"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GNY-nu-Vur">
@@ -260,8 +261,28 @@
                                 <rect key="frame" x="0.0" y="61" width="320" height="507"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="deviceRGB"/>
                             </webView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAb-Ww-AuX">
-                                <rect key="frame" x="261" y="28" width="46" height="30"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uZL-As-A7N">
+                                <rect key="frame" x="142" y="296" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tTM-LX-eKJ">
+                                <rect key="frame" x="200" y="15" width="46" height="30"/>
+                                <color key="backgroundColor" red="0.024241600811841235" green="0.18972493252762401" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="favoriteTapped:" destination="ktQ-ZW-4vc" eventType="touchDown" id="wqz-9B-Cbx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RM6-KP-qri">
+                                <rect key="frame" x="6" y="15" width="53" height="30"/>
+                                <color key="backgroundColor" red="0.066265229087975497" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="DeleteF"/>
+                                <connections>
+                                    <action selector="deleteTapped:" destination="ktQ-ZW-4vc" eventType="touchDown" id="7Hs-gJ-iVx"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAb-Ww-AuX">
+                                <rect key="frame" x="262" y="9" width="46" height="41"/>
+                                <color key="backgroundColor" red="1" green="0.21518994967840666" blue="0.18626423917497048" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="5wn-Gg-ihd"/>
                                     <constraint firstAttribute="width" constant="46" id="WV5-F5-LqD"/>
@@ -271,9 +292,6 @@
                                     <action selector="close:" destination="ktQ-ZW-4vc" eventType="touchUpInside" id="Qx0-Ih-NmC"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="uZL-As-A7N">
-                                <rect key="frame" x="142" y="296" width="37" height="37"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -287,6 +305,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="deleteAllButton" destination="RM6-KP-qri" id="G5d-tz-Unz"/>
                         <outlet property="indicator" destination="uZL-As-A7N" id="TjZ-nK-HFM"/>
                         <outlet property="webview" destination="wnQ-5e-JAD" id="nDZ-fI-yrS"/>
                     </connections>

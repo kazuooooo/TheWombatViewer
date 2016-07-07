@@ -7,19 +7,22 @@
 //
 
 import UIKit
+import RealmSwift
+import SwiftyJSON
 
 class MovieViewController: UIViewController, UIWebViewDelegate {
 
     @IBOutlet var webview:UIWebView!
     @IBOutlet var indicator:UIActivityIndicatorView!
+    let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var video:Video? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        
-        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let urlString = "https://www.youtube.com/watch?v=" + delegate.videoId!
+        video =  delegate.currentVideo
+        let videoId = video?.videoId
+        let urlString = "https://www.youtube.com/watch?v=" + videoId!
         let url = NSURL(string: urlString)
         let request = NSURLRequest(URL: url!)
         webview.loadRequest(request)
@@ -45,14 +48,29 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Add Favorite
+    let realm = try! Realm()
+    @IBAction func favoriteTapped(sender:UIButton){
+        saveAsFavoriteVideo()
     }
-    */
-
+    
+    private func saveAsFavoriteVideo(){
+        let favoriteVideo = Video()
+        favoriteVideo.videoId = (video?.videoId)!
+        favoriteVideo.title = video?.title
+        favoriteVideo.thumbnailURL = video?.thumbnailURL
+        debugPrint("save \(favoriteVideo)")
+        try! realm.write{
+            realm.add(favoriteVideo)
+        }
+        print(realm.objects(Video.self))
+    }
+    
+    @IBOutlet var deleteAllButton:UIButton!
+    @IBAction func deleteTapped(sender:UIButton){
+        try! realm.write{
+            realm.deleteAll()
+        }
+        print(realm.objects(Video.self))
+    }
 }
