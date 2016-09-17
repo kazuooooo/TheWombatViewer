@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/matsumotokazuya/Desktop/TheWombatViewer/Assets.xcassets">
+   </FileRef>
+   <FileRef
       location = "group:MyYouTube.xcodeproj">
    </FileRef>
    <FileRef
