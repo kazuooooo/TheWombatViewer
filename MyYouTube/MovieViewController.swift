@@ -33,7 +33,11 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
         indicator.startAnimating()
         webview.hidden = true;
         
-        setStarView()
+        if(FavoriteVideo.isExistingVideo(videoId!)){
+            setStarView(true)
+        } else {
+            setStarView(false)
+        }
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
@@ -59,19 +63,18 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     
     
     @IBAction func emptyStarTapped(sender:UIButton){
-        video?.favoriteVideo()
-        setStarView()
+        FavoriteVideo.favoriteVideo(video!)
+        setStarView(true)
     }
     
     @IBAction func starTapped(sendr:UIButton){
-        video?.unfavoriteVideo()
-        setStarView()
+        FavoriteVideo.unfavoriteVideo(video!)
+        setStarView(false)
     }
     
-    private func setStarView(){
-        let isStar = video?.isStar
-        starButton.hidden = !isStar!
-        starEmptyButton.hidden = isStar!
+    private func setStarView(isStar:Bool){
+        starButton.hidden = !isStar
+        starEmptyButton.hidden = isStar
     }
     
     @IBOutlet var deleteAllButton:UIButton!

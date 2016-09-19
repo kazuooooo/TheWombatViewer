@@ -58,31 +58,4 @@ class YoutubeAPI:NSObject{
         })
         task.resume()
     }
-    
-    func getFavoriteVideosJson(callback: ([Video])->()){
-        //Load FavoriteVideos
-        let realm = try! Realm()
-        let favoriteVideos = realm.objects(Video.self)
-        var videos:[Video] = []
-        debugPrint("FAVORITEVIEOES\(favoriteVideos)")
-        debugPrint("FAVORITEVIEOESCOUNT\(favoriteVideos.count)")
-        if(favoriteVideos.count > 0){
-            for i in 0...(favoriteVideos.count - 1){
-                print("INDEX\(i)")
-                print("VIDEOID\(i)")
-                debugPrint(favoriteVideos[i].videoId)
-                print("TITLE\(i)")
-                debugPrint(favoriteVideos[i].title)
-                print("URL\(i)")
-                debugPrint(favoriteVideos[i].thumbnailURL)
-                var video = Video()
-                video.videoId = favoriteVideos[i].videoId
-                video.title = favoriteVideos[i].title
-                video.thumbnailURL = favoriteVideos[i].thumbnailURL
-                videos.append(video)
-            }
-            debugPrint(videos)
-        }
-        callback(videos)
-    }
 }

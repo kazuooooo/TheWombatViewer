@@ -49,17 +49,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //Initial loadings
     private func initVideosTable(order:String){
-        youtubeAPIClient.order = order
         if API_ORDERS.contains(order){
+            youtubeAPIClient.order = order
             youtubeAPIClient.getVideosJSON({ [unowned self] json -> Void in
                 let videos = self.extractVideosFromJson(json)
                 self.initVideosTableCallBack(videos)
                 })
         }else{
-            // APIからお気に入りを呼び出すのはおかしい
-            youtubeAPIClient.getFavoriteVideosJson({[unowned self] videos -> Void in
-                self.initVideosTableCallBack(videos)
-                })
+            let videos = FavoriteVideo.getFavoriteVideos()
+            self.initVideosTableCallBack(videos)
         }
     }
     
