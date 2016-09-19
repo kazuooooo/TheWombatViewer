@@ -12,7 +12,8 @@ import SwiftyJSON
 
 class MovieViewController: UIViewController, UIWebViewDelegate {
 
-    @IBOutlet var testImage:UIImageView!
+    @IBOutlet var starButton:UIButton!
+    @IBOutlet var starEmptyButton:UIButton!
     @IBOutlet var webview:UIWebView!
     @IBOutlet var indicator:UIActivityIndicatorView!
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -32,9 +33,7 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
         indicator.startAnimating()
         webview.hidden = true;
         
-        testImage.image = UIImage(named: "back")!
-        testImage.backgroundColor = UIColor.greenColor()
-        print("test image background")
+        setStarView()
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
@@ -55,30 +54,22 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
 
     // Add Favorite
     let realm = try! Realm()
+    
+    
     @IBAction func emptyStarTapped(sender:UIButton){
-        print("emptystartapped")
-        saveAsFavoriteVideo()
+        video?.favoriteVideo()
+        setStarView()
     }
     
     @IBAction func starTapped(sendr:UIButton){
-        print("startapped")
-        saveAsUnfavoriteVideo()
+        video?.unfavoriteVideo()
+        setStarView()
     }
     
-    private func saveAsFavoriteVideo(){
-        let favoriteVideo = Video()
-        favoriteVideo.videoId = (video?.videoId)!
-        favoriteVideo.title = video?.title
-        favoriteVideo.thumbnailURL = video?.thumbnailURL
-        debugPrint("save \(favoriteVideo)")
-        try! realm.write{
-            realm.add(favoriteVideo)
-        }
-        print(realm.objects(Video.self))
-    }
-    
-    private func saveAsUnfavoriteVideo(){
-        print("call unfavorite")
+    private func setStarView(){
+        let isStar = video?.isStar
+        starButton.hidden = !isStar!
+        starEmptyButton.hidden = isStar!
     }
     
     @IBOutlet var deleteAllButton:UIButton!

@@ -337,7 +337,7 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="sgV-6Z-K5S">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="sgV-6Z-K5S">
                                 <rect key="frame" x="27" y="130" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.031893198480000003" green="0.077660333469999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </imageView>
@@ -361,6 +361,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
+                                <exclude reference="sgV-6Z-K5S"/>
                                 <exclude reference="o98-tb-L3M"/>
                             </mask>
                             <mask key="constraints">
@@ -373,7 +374,8 @@
                     <connections>
                         <outlet property="deleteAllButton" destination="RM6-KP-qri" id="G5d-tz-Unz"/>
                         <outlet property="indicator" destination="uZL-As-A7N" id="TjZ-nK-HFM"/>
-                        <outlet property="testImage" destination="sgV-6Z-K5S" id="U84-V2-ddh"/>
+                        <outlet property="starButton" destination="tTM-LX-eKJ" id="Jrj-d8-zA8"/>
+                        <outlet property="starEmptyButton" destination="LJh-cM-d7B" id="uRc-Gi-erg"/>
                         <outlet property="webview" destination="wnQ-5e-JAD" id="nDZ-fI-yrS"/>
                     </connections>
                 </viewController>
