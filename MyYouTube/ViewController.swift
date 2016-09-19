@@ -148,6 +148,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let videoItem = dataArray[indexPath.row]
         delegate.currentVideo = videoItem
         print("SELECT VIDEOITEM\(videoItem)")
+        let transition = TransitionUtil.moveForward()
+        self.view.window?.layer.addAnimation(transition, forKey: nil)
         self.performSegueWithIdentifier("ToMovie", sender: self)
     }
     
