@@ -152,11 +152,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //ToMovieButton//
-    @IBOutlet var toImageButton:UIButton!
-    @IBAction func toImageButtonTapped(){
-        let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewControllerWithIdentifier("image_mode") as! ImageViewController
-        self.presentViewController(nextView, animated: true, completion: nil)
-    }
+//    @IBOutlet var toImageButton:UIButton!
+//    @IBAction func toImageButtonTapped(){
+//        let storyboard: UIStoryboard = self.storyboard!
+//        let nextView = storyboard.instantiateViewControllerWithIdentifier("image_mode") as! ImageViewController
+//        self.presentViewController(nextView, animated: true, completion: nil)
+//    }
 }
 

@@ -12,6 +12,7 @@ import SwiftyJSON
 
 class MovieViewController: UIViewController, UIWebViewDelegate {
 
+    @IBOutlet var testImage:UIImageView!
     @IBOutlet var webview:UIWebView!
     @IBOutlet var indicator:UIActivityIndicatorView!
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -30,6 +31,10 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
         
         indicator.startAnimating()
         webview.hidden = true;
+        
+        testImage.image = UIImage(named: "back")!
+        testImage.backgroundColor = UIColor.greenColor()
+        print("test image background")
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
@@ -50,8 +55,14 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
 
     // Add Favorite
     let realm = try! Realm()
-    @IBAction func favoriteTapped(sender:UIButton){
+    @IBAction func emptyStarTapped(sender:UIButton){
+        print("emptystartapped")
         saveAsFavoriteVideo()
+    }
+    
+    @IBAction func starTapped(sendr:UIButton){
+        print("startapped")
+        saveAsUnfavoriteVideo()
     }
     
     private func saveAsFavoriteVideo(){
@@ -64,6 +75,10 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
             realm.add(favoriteVideo)
         }
         print(realm.objects(Video.self))
+    }
+    
+    private func saveAsUnfavoriteVideo(){
+        print("call unfavorite")
     }
     
     @IBOutlet var deleteAllButton:UIButton!

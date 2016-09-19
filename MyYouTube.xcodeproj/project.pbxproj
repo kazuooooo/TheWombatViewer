@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9B554EC15EF7C9CFC4774A2D /* Pods_MyYouTube.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC1B03339D9260EF3ABC0D3F /* Pods_MyYouTube.framework */; };
+		B914494F1D8FC9E00066408D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B914494E1D8FC9E00066408D /* Assets.xcassets */; };
 		B920E7261D2AA52F00ADE73F /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = B920E7251D2AA52F00ADE73F /* Video.swift */; };
 		B920E7291D2BF87F00ADE73F /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B920E7281D2BF87F00ADE73F /* Dog.swift */; };
 		B955DE2D1D1EDDD1008B87A1 /* YoutubeAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */; };
@@ -21,6 +22,7 @@
 		B9A470851D02951000313744 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B9A470831D02951000313744 /* LaunchScreen.storyboard */; };
 		B9A470931D02A9D800313744 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A470921D02A9D800313744 /* MovieViewController.swift */; };
 		B9A7D7321D8EA5EC0026FB87 /* MyYouTubeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A7D7311D8EA5EC0026FB87 /* MyYouTubeTests.swift */; };
+		B9A7D76A1D8EB8C50026FB87 /* ViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9A7D7691D8EB8C50026FB87 /* ViewControllerTests.swift */; };
 		B9E29AF11D1C29E6005582C7 /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E29AF01D1C29E6005582C7 /* Const.swift */; };
 		B9F727D61D0D3920001E9BEB /* UIViewExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F727D51D0D3920001E9BEB /* UIViewExtention.swift */; };
 /* End PBXBuildFile section */
@@ -37,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		8E4BC19FF5631BD6B0A90AE7 /* Pods-MyYouTube.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyYouTube.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyYouTube/Pods-MyYouTube.debug.xcconfig"; sourceTree = "<group>"; };
+		B914494E1D8FC9E00066408D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B920E7251D2AA52F00ADE73F /* Video.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		B920E7281D2BF87F00ADE73F /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		B955DE2C1D1EDDD1008B87A1 /* YoutubeAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YoutubeAPI.swift; sourceTree = "<group>"; };
@@ -54,6 +57,7 @@
 		B9A7D72F1D8EA5EC0026FB87 /* MyYouTubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyYouTubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A7D7311D8EA5EC0026FB87 /* MyYouTubeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYouTubeTests.swift; sourceTree = "<group>"; };
 		B9A7D7331D8EA5EC0026FB87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B9A7D7691D8EB8C50026FB87 /* ViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
 		B9E29AF01D1C29E6005582C7 /* Const.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		B9F727D51D0D3920001E9BEB /* UIViewExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtention.swift; sourceTree = "<group>"; };
 		CC1B03339D9260EF3ABC0D3F /* Pods_MyYouTube.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MyYouTube.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +129,7 @@
 		B9A4706E1D02951000313744 = {
 			isa = PBXGroup;
 			children = (
+				B914494E1D8FC9E00066408D /* Assets.xcassets */,
 				B9A470791D02951000313744 /* MyYouTube */,
 				B9A7D7301D8EA5EC0026FB87 /* MyYouTubeTests */,
 				B9A470781D02951000313744 /* Products */,
@@ -167,6 +172,7 @@
 			children = (
 				B9A7D7311D8EA5EC0026FB87 /* MyYouTubeTests.swift */,
 				B9A7D7331D8EA5EC0026FB87 /* Info.plist */,
+				B9A7D7691D8EB8C50026FB87 /* ViewControllerTests.swift */,
 			);
 			path = MyYouTubeTests;
 			sourceTree = "<group>";
@@ -266,6 +272,7 @@
 			files = (
 				B9A470851D02951000313744 /* LaunchScreen.storyboard in Resources */,
 				B9A470801D02951000313744 /* Main.storyboard in Resources */,
+				B914494F1D8FC9E00066408D /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +357,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9A7D76A1D8EB8C50026FB87 /* ViewControllerTests.swift in Sources */,
 				B9A7D7321D8EA5EC0026FB87 /* MyYouTubeTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -471,9 +479,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8E4BC19FF5631BD6B0A90AE7 /* Pods-MyYouTube.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = MyYouTube/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -487,9 +495,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBDFC931350B7B0B7EA32826 /* Pods-MyYouTube.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = MyYouTube/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -551,6 +559,7 @@
 				B9A7D7371D8EA5EC0026FB87 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
