@@ -10,18 +10,19 @@ import UIKit
 import SwiftyJSON
 import ObjectMapper
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MovieListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var cacheDic:[String:UIImage] = [:]
     let youtubeAPIClient = YoutubeAPI()
     var dataArray:[Video] = []
     let API_ORDERS = [YoutubeAPI.ORDER_RELEVANCE, YoutubeAPI.ORDER_DATE, YoutubeAPI.ORDER_RATING]
+    var apiOrder:String?
     
     //Common//
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
-        initVideosTable(YoutubeAPI.ORDER_RELEVANCE)
+        initVideosTable(apiOrder!)
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,23 +30,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //SegmentControl//
-    @IBOutlet var segmentControl: UISegmentedControl!
-    @IBAction func indexChanged(sender:UISegmentedControl){
-        switch segmentControl.selectedSegmentIndex
-        {
-        case 0:
-            initVideosTable(YoutubeAPI.ORDER_RELEVANCE)
-        case 1:
-            initVideosTable(YoutubeAPI.ORDER_DATE)
-        case 2:
-            initVideosTable(YoutubeAPI.ORDER_RATING)
-        case 3:
-            initVideosTable(YoutubeAPI.ORDER_FAVORITE)
-        default:
-            print("other tapped??")
-        }
-        self.tableView.setContentOffset(CGPointZero, animated:true)
-    }
+//    @IBOutlet var segmentControl: UISegmentedControl!
+//    @IBAction func indexChanged(sender:UISegmentedControl){
+//        switch segmentControl.selectedSegmentIndex
+//        {
+//        case 0:
+//            initVideosTable(YoutubeAPI.ORDER_RELEVANCE)
+//        case 1:
+//            initVideosTable(YoutubeAPI.ORDER_DATE)
+//        case 2:
+//            initVideosTable(YoutubeAPI.ORDER_RATING)
+//        case 3:
+//            initVideosTable(YoutubeAPI.ORDER_FAVORITE)
+//        default:
+//            print("other tapped??")
+//        }
+//        self.tableView.setContentOffset(CGPointZero, animated:true)
+//    }
     
     //Initial loadings
     private func initVideosTable(order:String){

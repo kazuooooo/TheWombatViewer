@@ -9,4 +9,5 @@ target 'MyYouTube' do
   pod 'SwiftyJSON'
   pod 'ObjectMapper', '~> 1.3'
   pod 'QuickBlox'
+  pod 'PageMenu'
 end
