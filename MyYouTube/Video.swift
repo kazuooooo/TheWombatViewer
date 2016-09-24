@@ -24,4 +24,5 @@ class Video: Object, Mappable {
         title        <- map["snippet.title"]
         thumbnailURL <- map["snippet.thumbnails.high.url"]
     }
+    
 }

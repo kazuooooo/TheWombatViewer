@@ -42,7 +42,7 @@ class ImageViewController: UIViewController {
     @IBOutlet var toMovieButton:UIButton!
     @IBAction func toMovieButtonTapped(){
         let storyboard: UIStoryboard = self.storyboard!
-        let nextView = storyboard.instantiateViewControllerWithIdentifier("movie_mode") as! ViewController
+        let nextView = storyboard.instantiateViewControllerWithIdentifier("movie_list") as! MovieListViewController
         self.presentViewController(nextView, animated: true, completion: nil)
     }
     

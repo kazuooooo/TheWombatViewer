@@ -12,6 +12,8 @@ import SwiftyJSON
 
 class MovieViewController: UIViewController, UIWebViewDelegate {
 
+    @IBOutlet var starButton:UIButton!
+    @IBOutlet var starEmptyButton:UIButton!
     @IBOutlet var webview:UIWebView!
     @IBOutlet var indicator:UIActivityIndicatorView!
     let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -30,6 +32,12 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
         
         indicator.startAnimating()
         webview.hidden = true;
+        
+        if(FavoriteVideo.isExistingVideo(videoId!)){
+            setStarView(true)
+        } else {
+            setStarView(false)
+        }
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
@@ -44,26 +52,29 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     }
     
     @IBAction func close(sender:AnyObject){
+        let transition = TransitionUtil.moveBack()
+        self.view.window?.layer.addAnimation(transition, forKey: nil)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
 
     // Add Favorite
     let realm = try! Realm()
-    @IBAction func favoriteTapped(sender:UIButton){
-        saveAsFavoriteVideo()
+    
+    
+    @IBAction func emptyStarTapped(sender:UIButton){
+        FavoriteVideo.favoriteVideo(video!)
+        setStarView(true)
     }
     
-    private func saveAsFavoriteVideo(){
-        let favoriteVideo = Video()
-        favoriteVideo.videoId = (video?.videoId)!
-        favoriteVideo.title = video?.title
-        favoriteVideo.thumbnailURL = video?.thumbnailURL
-        debugPrint("save \(favoriteVideo)")
-        try! realm.write{
-            realm.add(favoriteVideo)
-        }
-        print(realm.objects(Video.self))
+    @IBAction func starTapped(sendr:UIButton){
+        FavoriteVideo.unfavoriteVideo(video!)
+        setStarView(false)
+    }
+    
+    private func setStarView(isStar:Bool){
+        starButton.hidden = !isStar
+        starEmptyButton.hidden = isStar
     }
     
     @IBOutlet var deleteAllButton:UIButton!
