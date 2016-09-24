@@ -31,6 +31,7 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
         webview.delegate = self
         
         indicator.startAnimating()
+        indicator.color = UIColor.blackColor()
         webview.hidden = true;
         
         if(FavoriteVideo.isExistingVideo(videoId!)){

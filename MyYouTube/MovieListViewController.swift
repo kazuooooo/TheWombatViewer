@@ -12,6 +12,7 @@ import ObjectMapper
 
 class MovieListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet var indicator:UIActivityIndicatorView!
     var cacheDic:[String:UIImage] = [:]
     let youtubeAPIClient = YoutubeAPI()
     var dataArray:[Video] = []
@@ -22,31 +23,14 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
+        indicator.color = UIColor.blackColor()
+        indicator.startAnimating()
         initVideosTable(apiOrder!)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    //SegmentControl//
-//    @IBOutlet var segmentControl: UISegmentedControl!
-//    @IBAction func indexChanged(sender:UISegmentedControl){
-//        switch segmentControl.selectedSegmentIndex
-//        {
-//        case 0:
-//            initVideosTable(YoutubeAPI.ORDER_RELEVANCE)
-//        case 1:
-//            initVideosTable(YoutubeAPI.ORDER_DATE)
-//        case 2:
-//            initVideosTable(YoutubeAPI.ORDER_RATING)
-//        case 3:
-//            initVideosTable(YoutubeAPI.ORDER_FAVORITE)
-//        default:
-//            print("other tapped??")
-//        }
-//        self.tableView.setContentOffset(CGPointZero, animated:true)
-//    }
     
     //Initial loadings
     private func initVideosTable(order:String){
@@ -67,6 +51,8 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.dataArray = videos
         self.tableView.reloadData()
         self.isLoadingMore = false
+        indicator.stopAnimating()
+        indicator.hidden = true
     }
     
     // Scroll
@@ -153,13 +139,5 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.window?.layer.addAnimation(transition, forKey: nil)
         self.performSegueWithIdentifier("ToMovie", sender: self)
     }
-    
-    //ToMovieButton//
-//    @IBOutlet var toImageButton:UIButton!
-//    @IBAction func toImageButtonTapped(){
-//        let storyboard: UIStoryboard = self.storyboard!
-//        let nextView = storyboard.instantiateViewControllerWithIdentifier("image_mode") as! ImageViewController
-//        self.presentViewController(nextView, animated: true, completion: nil)
-//    }
 }
 
