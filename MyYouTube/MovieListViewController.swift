@@ -120,6 +120,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     //Table Cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
+        tableView.backgroundColor = Const.backgroundBrown
         // set data
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
         let video = dataArray[indexPath.row]
@@ -127,6 +128,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         title.text = video.title
         let background = cell.viewWithTag(4) as! UIImageView
         let videoId = video.videoId
+        
         
         // cache image
         if let img = cacheDic[videoId!] {
