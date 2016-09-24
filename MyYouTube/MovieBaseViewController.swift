@@ -18,15 +18,15 @@ class MovieBaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var controllerArray : [UIViewController] = []
-        
-        for(order, title) in orderDic {
-            var controller : MovieListViewController = self.storyboard!.instantiateViewControllerWithIdentifier("movie_list") as! MovieListViewController
-            controller.apiOrder = order
-            controller.title = title
+        print(Const.menuOrder)
+        for menu in Const.menuOrder {
+            let controller : MovieListViewController = self.storyboard!.instantiateViewControllerWithIdentifier("movie_list") as! MovieListViewController
+            controller.apiOrder = menu
+            controller.title = orderDic[menu]!
             controllerArray.append(controller)
         }
 
-        var parameters: [CAPSPageMenuOption] = [
+        let parameters: [CAPSPageMenuOption] = [
             .ScrollMenuBackgroundColor(Const.applicationColor),
             .MenuItemSeparatorColor (Const.applicationColor),
             .MenuItemSeparatorWidth(4.3),

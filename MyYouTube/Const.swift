@@ -27,5 +27,10 @@ class Const: NSObject {
     static let tabBarHeight : CGFloat = 35
     static let applicationColor = UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113/255.0, alpha: 1.0)
     static let backgroundBrown = UIColor(red: 250.0/255.0, green: 237.0/255.0, blue: 217/255.0, alpha: 1.0)
+    static let menuOrder = [YoutubeAPI.ORDER_RELEVANCE,
+                            YoutubeAPI.ORDER_RATING,
+                            YoutubeAPI.ORDER_DATE,
+                            YoutubeAPI.ORDER_FAVORITE
+    ]
 //    static let tabIndicatorColor = UIColor(red:, green:, blue:)
 }
