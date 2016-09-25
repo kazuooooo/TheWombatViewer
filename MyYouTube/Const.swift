@@ -14,7 +14,7 @@ class Const: NSObject {
     static let playlistsId = "RDEMjJwyoVnrXWAjTqxy3NU-Gw"
     static let apiKey = "AIzaSyBrnf1utjawWnWVIbGyzolutHVAfDJUbwA"
     static let csecx="011414427028001942649:vfbik7d0qd8"
-    static let searchKeyword = "ウォンバット|wombat"
+    static let searchKeyword = "ウォンバット|wombat|袋熊|вомбат|웜뱃"
     static let maxResults = 10
     
     // list title
