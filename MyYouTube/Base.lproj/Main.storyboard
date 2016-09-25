@@ -9,7 +9,7 @@
         <!--Movie Base View Controller-->
         <scene sceneID="64T-gn-7eO">
             <objects>
-                <viewController id="SGK-hk-QzN" customClass="MovieBaseViewController" customModule="MyYouTube" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="SGK-hk-QzN" customClass="MovieBaseViewController" customModule="TheWombatViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="enJ-og-fXJ"/>
                         <viewControllerLayoutGuide type="bottom" id="EQp-v3-c52"/>
@@ -34,7 +34,7 @@
         <!--Movie List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="movie_list" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="MovieListViewController" customModule="MyYouTube" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="movie_list" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="MovieListViewController" customModule="TheWombatViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -187,7 +187,7 @@
         <!--Image View Controller-->
         <scene sceneID="uRf-ky-dkv">
             <objects>
-                <viewController storyboardIdentifier="image_mode" id="5t1-m1-g1b" customClass="ImageViewController" customModule="MyYouTube" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="image_mode" id="5t1-m1-g1b" customClass="ImageViewController" customModule="TheWombatViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1NX-i5-hjc"/>
                         <viewControllerLayoutGuide type="bottom" id="Mj0-7P-tsp"/>
@@ -262,7 +262,7 @@
         <!--Movie View Controller-->
         <scene sceneID="Edt-YC-UGb">
             <objects>
-                <viewController id="ktQ-ZW-4vc" customClass="MovieViewController" customModule="MyYouTube" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="ktQ-ZW-4vc" customClass="MovieViewController" customModule="TheWombatViewer" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="aAK-cp-PRd"/>
                         <viewControllerLayoutGuide type="bottom" id="efy-0m-JcM"/>

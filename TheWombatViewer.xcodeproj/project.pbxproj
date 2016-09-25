@@ -49,7 +49,7 @@
 		B9A3C4B31D1FDB5100BF5809 /* ImageSearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSearchAPI.swift; sourceTree = "<group>"; };
 		B9A3C4BA1D21736300BF5809 /* UIPanGestureRecognizerUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPanGestureRecognizerUtil.swift; sourceTree = "<group>"; };
 		B9A3C4BD1D26B14500BF5809 /* ImageAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageAnimation.swift; sourceTree = "<group>"; };
-		B9A470771D02951000313744 /* MyYouTube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyYouTube.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9A470771D02951000313744 /* TheWombatViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheWombatViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A4707A1D02951000313744 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9A4707C1D02951000313744 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		B9A4707F1D02951000313744 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -58,7 +58,7 @@
 		B9A470921D02A9D800313744 /* MovieViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
 		B9A4CD181D9397C6008B2F2E /* CAPSPageMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CAPSPageMenu.swift; sourceTree = "<group>"; };
 		B9A4CD1A1D93985F008B2F2E /* MovieBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieBaseViewController.swift; sourceTree = "<group>"; };
-		B9A7D72F1D8EA5EC0026FB87 /* MyYouTubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyYouTubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9A7D72F1D8EA5EC0026FB87 /* TheWombatViewer.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheWombatViewer.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9A7D7311D8EA5EC0026FB87 /* MyYouTubeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyYouTubeTests.swift; sourceTree = "<group>"; };
 		B9A7D7331D8EA5EC0026FB87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9A7D7691D8EB8C50026FB87 /* ViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewControllerTests.swift; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 		B9A470781D02951000313744 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B9A470771D02951000313744 /* MyYouTube.app */,
-				B9A7D72F1D8EA5EC0026FB87 /* MyYouTubeTests.xctest */,
+				B9A470771D02951000313744 /* TheWombatViewer.app */,
+				B9A7D72F1D8EA5EC0026FB87 /* TheWombatViewer.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,9 +197,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B9A470761D02951000313744 /* MyYouTube */ = {
+		B9A470761D02951000313744 /* TheWombatViewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B9A470891D02951000313744 /* Build configuration list for PBXNativeTarget "MyYouTube" */;
+			buildConfigurationList = B9A470891D02951000313744 /* Build configuration list for PBXNativeTarget "TheWombatViewer" */;
 			buildPhases = (
 				539F5A7BC58B3B64E16DD297 /* [CP] Check Pods Manifest.lock */,
 				B9A470731D02951000313744 /* Sources */,
@@ -212,14 +212,14 @@
 			);
 			dependencies = (
 			);
-			name = MyYouTube;
+			name = TheWombatViewer;
 			productName = MyYouTube;
-			productReference = B9A470771D02951000313744 /* MyYouTube.app */;
+			productReference = B9A470771D02951000313744 /* TheWombatViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B9A7D72E1D8EA5EC0026FB87 /* MyYouTubeTests */ = {
+		B9A7D72E1D8EA5EC0026FB87 /* TheWombatViewerTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B9A7D7381D8EA5EC0026FB87 /* Build configuration list for PBXNativeTarget "MyYouTubeTests" */;
+			buildConfigurationList = B9A7D7381D8EA5EC0026FB87 /* Build configuration list for PBXNativeTarget "TheWombatViewerTests" */;
 			buildPhases = (
 				B9A7D72B1D8EA5EC0026FB87 /* Sources */,
 				B9A7D72C1D8EA5EC0026FB87 /* Frameworks */,
@@ -230,9 +230,9 @@
 			dependencies = (
 				B9A7D7351D8EA5EC0026FB87 /* PBXTargetDependency */,
 			);
-			name = MyYouTubeTests;
+			name = TheWombatViewerTests;
 			productName = MyYouTubeTests;
-			productReference = B9A7D72F1D8EA5EC0026FB87 /* MyYouTubeTests.xctest */;
+			productReference = B9A7D72F1D8EA5EC0026FB87 /* TheWombatViewer.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -255,7 +255,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B9A470721D02951000313744 /* Build configuration list for PBXProject "MyYouTube" */;
+			buildConfigurationList = B9A470721D02951000313744 /* Build configuration list for PBXProject "TheWombatViewer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -268,8 +268,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B9A470761D02951000313744 /* MyYouTube */,
-				B9A7D72E1D8EA5EC0026FB87 /* MyYouTubeTests */,
+				B9A470761D02951000313744 /* TheWombatViewer */,
+				B9A7D72E1D8EA5EC0026FB87 /* TheWombatViewerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -379,7 +379,7 @@
 /* Begin PBXTargetDependency section */
 		B9A7D7351D8EA5EC0026FB87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B9A470761D02951000313744 /* MyYouTube */;
+			target = B9A470761D02951000313744 /* TheWombatViewer */;
 			targetProxy = B9A7D7341D8EA5EC0026FB87 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -500,7 +500,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kazuya.matsumoto.MyYouTube;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TheWombatViewer;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -518,7 +518,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kazuya.matsumoto.MyYouTube;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TheWombatViewer;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -530,8 +530,8 @@
 				INFOPLIST_FILE = MyYouTubeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kazuya.matsumoto.MyYouTubeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyYouTube.app/MyYouTube";
+				PRODUCT_NAME = TheWombatViewer;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheWombatViewer.app/TheWombatViewer";
 			};
 			name = Debug;
 		};
@@ -542,15 +542,15 @@
 				INFOPLIST_FILE = MyYouTubeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kazuya.matsumoto.MyYouTubeTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MyYouTube.app/MyYouTube";
+				PRODUCT_NAME = TheWombatViewer;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheWombatViewer.app/TheWombatViewer";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B9A470721D02951000313744 /* Build configuration list for PBXProject "MyYouTube" */ = {
+		B9A470721D02951000313744 /* Build configuration list for PBXProject "TheWombatViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9A470871D02951000313744 /* Debug */,
@@ -559,7 +559,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B9A470891D02951000313744 /* Build configuration list for PBXNativeTarget "MyYouTube" */ = {
+		B9A470891D02951000313744 /* Build configuration list for PBXNativeTarget "TheWombatViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9A4708A1D02951000313744 /* Debug */,
@@ -568,7 +568,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B9A7D7381D8EA5EC0026FB87 /* Build configuration list for PBXNativeTarget "MyYouTubeTests" */ = {
+		B9A7D7381D8EA5EC0026FB87 /* Build configuration list for PBXNativeTarget "TheWombatViewerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9A7D7361D8EA5EC0026FB87 /* Debug */,
