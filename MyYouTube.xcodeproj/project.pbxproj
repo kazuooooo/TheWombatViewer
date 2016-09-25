@@ -491,6 +491,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8E4BC19FF5631BD6B0A90AE7 /* Pods-MyYouTube.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -508,6 +509,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DBDFC931350B7B0B7EA32826 /* Pods-MyYouTube.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
