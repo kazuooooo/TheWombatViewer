@@ -53,6 +53,7 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     }
     
     @IBAction func close(sender:AnyObject){
+        print("push close")
         let transition = TransitionUtil.moveBack()
         self.view.window?.layer.addAnimation(transition, forKey: nil)
         self.dismissViewControllerAnimated(true, completion: nil)

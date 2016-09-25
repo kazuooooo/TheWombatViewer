@@ -111,13 +111,15 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     //Table
     @IBOutlet var tableView:UITableView!
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableView.backgroundColor = Const.backgroundBrown
+        if(dataArray.count == Const.maxResults || isFavoirteOrder()){
+            tableView.fadeIn(FadeType.Slow, completed:nil)
+        }
         return dataArray.count
     }
     
     //Table Cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        tableView.backgroundColor = Const.backgroundBrown
         // set data
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
         let video = dataArray[indexPath.row]
