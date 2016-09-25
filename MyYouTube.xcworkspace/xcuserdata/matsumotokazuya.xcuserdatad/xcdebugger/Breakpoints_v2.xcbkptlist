@@ -198,7 +198,7 @@
                   moduleName = "MyYouTube"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matsumotokazuya/Desktop/TheWombatViewer/MyYouTube/FavoriteVideo.swift"
-                  timestampString = "496402333.498401"
+                  timestampString = "496410572.565685"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "42"
@@ -213,7 +213,7 @@
                   moduleName = "MyYouTube"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/matsumotokazuya/Desktop/TheWombatViewer/MyYouTube/FavoriteVideo.swift"
-                  timestampString = "496402333.49861"
+                  timestampString = "496410572.56581"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "43"
@@ -284,6 +284,22 @@
             startingLineNumber = "41"
             endingLineNumber = "41"
             landmarkName = "viewDidLoad()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MyYouTube/MovieListViewController.swift"
+            timestampString = "496410495.626751"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "viewDidAppear(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

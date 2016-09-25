@@ -21,11 +21,18 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Common//
     override func viewDidLoad() {
+        print("call vied did load"+apiOrder!)
         super.viewDidLoad()
         scrollView.delegate = self
         indicator.color = UIColor.blackColor()
         indicator.startAnimating()
-        initVideosTable(apiOrder!)
+        initVideosTable()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if isFavoirteOrder() {
+            initVideosTable()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -33,17 +40,21 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     //Initial loadings
-    private func initVideosTable(order:String){
-        if API_ORDERS.contains(order){
-            youtubeAPIClient.order = order
+    private func initVideosTable(){
+        if isFavoirteOrder(){
+            let videos = FavoriteVideo.getFavoriteVideos()
+            self.initVideosTableCallBack(videos)
+        } else {
+            youtubeAPIClient.order = apiOrder!
             youtubeAPIClient.getVideosJSON({ [unowned self] json -> Void in
                 let videos = self.extractVideosFromJson(json)
                 self.initVideosTableCallBack(videos)
                 })
-        }else{
-            let videos = FavoriteVideo.getFavoriteVideos()
-            self.initVideosTableCallBack(videos)
         }
+    }
+    
+    private func isFavoirteOrder() -> Bool {
+        return apiOrder == YoutubeAPI.ORDER_FAVORITE
     }
     
     private func initVideosTableCallBack(videos:[Video]){
@@ -64,7 +75,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
         
         // additional load on scroll near bottom
-        if !isLoadingMore && (maximumOffset - contentOffset <= threshold) {
+        if !isLoadingMore && (maximumOffset - contentOffset <= threshold) && !isFavoirteOrder() {
             self.isLoadingMore = true
             print("reach bottom")
             addVideosTable()
@@ -80,7 +91,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
                 })
         }
     }
-
+    
     private func addVideosTableCallBack(videos:[Video]){
         self.dataArray += videos
         self.tableView.reloadData()
@@ -96,7 +107,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         return videos
     }
-
+    
     //Table
     @IBOutlet var tableView:UITableView!
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
