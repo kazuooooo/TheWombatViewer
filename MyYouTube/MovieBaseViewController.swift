@@ -26,6 +26,7 @@ class MovieBaseViewController: UIViewController {
             controllerArray.append(controller)
         }
 
+        let statusBarHeight = UIApplication.sharedApplication().statusBarFrame.height
         let parameters: [CAPSPageMenuOption] = [
             .ScrollMenuBackgroundColor(Const.applicationColor),
             .MenuItemSeparatorColor (Const.applicationColor),
@@ -34,11 +35,13 @@ class MovieBaseViewController: UIViewController {
             .MenuItemSeparatorPercentageHeight(0.1),
             .MenuItemSeparatorRoundEdges(true),
             .MenuItemWidthBasedOnTitleTextWidth (true),
-            .UnselectedMenuItemLabelColor (UIColor.whiteColor())
+            .UnselectedMenuItemLabelColor (UIColor.whiteColor()),
+            .MenuHeight(Const.menuHeight),
+            .MenuItemHeight(Const.menuHeight - statusBarHeight)
         ]
         
         // Initialize page menu with controller array, frame, and optional parameters
-        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, Const.tabBarHeight, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
+        pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.view.frame.width, self.view.frame.height), pageMenuOptions: parameters)
         
         self.view.addSubview(pageMenu!.view)
     }
