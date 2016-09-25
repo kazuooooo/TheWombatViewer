@@ -35,9 +35,9 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
         webview.hidden = true;
         
         if(FavoriteVideo.isExistingVideo(videoId!)){
-            setStarView(true)
+            setStarActive(false)
         } else {
-            setStarView(false)
+            setStarEmpty()
         }
     }
     
@@ -65,17 +65,29 @@ class MovieViewController: UIViewController, UIWebViewDelegate {
     
     @IBAction func emptyStarTapped(sender:UIButton){
         FavoriteVideo.favoriteVideo(video!)
-        setStarView(true)
+        setStarActive(true)
     }
     
     @IBAction func starTapped(sendr:UIButton){
         FavoriteVideo.unfavoriteVideo(video!)
-        setStarView(false)
+        setStarEmpty()
     }
     
-    private func setStarView(isStar:Bool){
-        starButton.hidden = !isStar
-        starEmptyButton.hidden = isStar
+    private func setStarEmpty(){
+        starButton.hidden = true
+        starEmptyButton.hidden = false
+    }
+    
+    private func setStarActive(animate:Bool){
+        starButton.hidden = false
+        starEmptyButton.hidden = true
+        if(animate){
+            UIView.animateWithDuration(0.2, delay: 0.0,options:UIViewAnimationOptions.CurveEaseOut, animations: {
+                self.starButton?.transform = CGAffineTransformMakeScale(1.5, 1.5)
+                }, completion:{(_) in
+                    self.starButton?.transform = CGAffineTransformIdentity
+            })
+        }
     }
     
     @IBOutlet var deleteAllButton:UIButton!
