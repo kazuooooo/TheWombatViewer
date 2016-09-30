@@ -37,7 +37,8 @@ class MovieBaseViewController: UIViewController {
             .MenuItemWidthBasedOnTitleTextWidth (true),
             .UnselectedMenuItemLabelColor (UIColor.whiteColor()),
             .MenuHeight(Const.menuHeight),
-            .MenuItemHeight(Const.menuHeight - statusBarHeight)
+            .MenuItemHeight(Const.menuHeight - statusBarHeight),
+            .AddBottomMenuHairline(false)
         ]
         
         // Initialize page menu with controller array, frame, and optional parameters

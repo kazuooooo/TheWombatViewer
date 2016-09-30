@@ -13,6 +13,8 @@ class Video: Object, Mappable {
     dynamic var videoId:String?
     dynamic var title: String?
     dynamic var thumbnailURL: String?
+    dynamic var channelTitle: String?
+    dynamic var publishedAt: String?
     
     required convenience init?(_ map: Map) {
         self.init()
@@ -22,7 +24,9 @@ class Video: Object, Mappable {
     func mapping(map: Map) {
         videoId      <- map["id.videoId"]
         title        <- map["snippet.title"]
-        thumbnailURL <- map["snippet.thumbnails.high.url"]
+        thumbnailURL <- map["snippet.thumbnails.default.url"]
+        channelTitle <- map["snippet.channelTitle"]
+        publishedAt  <- map["snippet.publishedAt"]
     }
     
 }

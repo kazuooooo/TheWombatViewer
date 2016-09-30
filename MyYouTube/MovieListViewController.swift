@@ -111,7 +111,6 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     //Table
     @IBOutlet var tableView:UITableView!
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableView.backgroundColor = Const.backgroundBrown
         if(dataArray.count == Const.maxResults || isFavoirteOrder()){
             tableView.fadeIn(FadeType.Slow, completed:nil)
         }
@@ -124,7 +123,18 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
         let video = dataArray[indexPath.row]
         let title = cell.viewWithTag(1) as! UILabel
+        let channelTitle = cell.viewWithTag(3) as! UILabel
+        let publishedAt = cell.viewWithTag(5) as! UILabel
+        let contentView = cell.viewWithTag(10)
+        if(indexPath.row % 2 == 0){
+            contentView!.backgroundColor = Const.backgroundBrown
+        }else{
+            contentView!.backgroundColor = Const.backgroundBrownLight
+        }
         title.text = video.title
+        
+        publishedAt.text = DateUtil.sharedInstance.timeStampToDateString(video.publishedAt!)
+        channelTitle.text = video.channelTitle
         let background = cell.viewWithTag(4) as! UIImageView
         let videoId = video.videoId
         
@@ -135,8 +145,18 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         }else{
             let urlString = video.thumbnailURL
             let url = NSURL(string: urlString!);
-            let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
-            let img = UIImage(data:imageData)
+            var imageData: NSData?
+            do {
+                imageData = try NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
+            } catch {
+                imageData = nil
+            }
+            var img: UIImage;
+            if let imageData = imageData {
+                img = UIImage(data:imageData)!
+            } else {
+                img = UIImage(named: "icon")!
+            }
             background.image = img
             cacheDic[videoId!] = img
         }
