@@ -12,6 +12,7 @@ import ObjectMapper
 
 class MovieListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet var indicator:UIActivityIndicatorView!
     var cacheDic:[String:UIImage] = [:]
     let youtubeAPIClient = YoutubeAPI()
     var dataArray:[Video] = []
@@ -20,46 +21,40 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Common//
     override func viewDidLoad() {
+        print("call vied did load"+apiOrder!)
         super.viewDidLoad()
         scrollView.delegate = self
-        initVideosTable(apiOrder!)
+        indicator.color = UIColor.blackColor()
+        indicator.startAnimating()
+        initVideosTable()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if isFavoirteOrder() {
+            initVideosTable()
+        }
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    //SegmentControl//
-//    @IBOutlet var segmentControl: UISegmentedControl!
-//    @IBAction func indexChanged(sender:UISegmentedControl){
-//        switch segmentControl.selectedSegmentIndex
-//        {
-//        case 0:
-//            initVideosTable(YoutubeAPI.ORDER_RELEVANCE)
-//        case 1:
-//            initVideosTable(YoutubeAPI.ORDER_DATE)
-//        case 2:
-//            initVideosTable(YoutubeAPI.ORDER_RATING)
-//        case 3:
-//            initVideosTable(YoutubeAPI.ORDER_FAVORITE)
-//        default:
-//            print("other tapped??")
-//        }
-//        self.tableView.setContentOffset(CGPointZero, animated:true)
-//    }
-    
     //Initial loadings
-    private func initVideosTable(order:String){
-        if API_ORDERS.contains(order){
-            youtubeAPIClient.order = order
+    private func initVideosTable(){
+        if isFavoirteOrder(){
+            let videos = FavoriteVideo.getFavoriteVideos()
+            self.initVideosTableCallBack(videos)
+        } else {
+            youtubeAPIClient.order = apiOrder!
             youtubeAPIClient.getVideosJSON({ [unowned self] json -> Void in
                 let videos = self.extractVideosFromJson(json)
                 self.initVideosTableCallBack(videos)
                 })
-        }else{
-            let videos = FavoriteVideo.getFavoriteVideos()
-            self.initVideosTableCallBack(videos)
         }
+    }
+    
+    private func isFavoirteOrder() -> Bool {
+        return apiOrder == YoutubeAPI.ORDER_FAVORITE
     }
     
     private func initVideosTableCallBack(videos:[Video]){
@@ -67,6 +62,8 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.dataArray = videos
         self.tableView.reloadData()
         self.isLoadingMore = false
+        indicator.stopAnimating()
+        indicator.hidden = true
     }
     
     // Scroll
@@ -78,7 +75,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height;
         
         // additional load on scroll near bottom
-        if !isLoadingMore && (maximumOffset - contentOffset <= threshold) {
+        if !isLoadingMore && (maximumOffset - contentOffset <= threshold) && !isFavoirteOrder() {
             self.isLoadingMore = true
             print("reach bottom")
             addVideosTable()
@@ -94,7 +91,7 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
                 })
         }
     }
-
+    
     private func addVideosTableCallBack(videos:[Video]){
         self.dataArray += videos
         self.tableView.reloadData()
@@ -110,23 +107,37 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         return videos
     }
-
+    
     //Table
     @IBOutlet var tableView:UITableView!
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(dataArray.count == Const.maxResults || isFavoirteOrder()){
+            tableView.fadeIn(FadeType.Slow, completed:nil)
+        }
         return dataArray.count
     }
     
     //Table Cell
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         // set data
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell")! as UITableViewCell
         let video = dataArray[indexPath.row]
         let title = cell.viewWithTag(1) as! UILabel
+        let channelTitle = cell.viewWithTag(3) as! UILabel
+        let publishedAt = cell.viewWithTag(5) as! UILabel
+        let contentView = cell.viewWithTag(10)
+        if(indexPath.row % 2 == 0){
+            contentView!.backgroundColor = Const.backgroundBrown
+        }else{
+            contentView!.backgroundColor = Const.backgroundBrownLight
+        }
         title.text = video.title
+        
+        publishedAt.text = DateUtil.sharedInstance.timeStampToDateString(video.publishedAt!)
+        channelTitle.text = video.channelTitle
         let background = cell.viewWithTag(4) as! UIImageView
         let videoId = video.videoId
+        
         
         // cache image
         if let img = cacheDic[videoId!] {
@@ -134,8 +145,18 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         }else{
             let urlString = video.thumbnailURL
             let url = NSURL(string: urlString!);
-            let imageData = try! NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
-            let img = UIImage(data:imageData)
+            var imageData: NSData?
+            do {
+                imageData = try NSData(contentsOfURL: url!, options: .DataReadingMappedIfSafe)
+            } catch {
+                imageData = nil
+            }
+            var img: UIImage;
+            if let imageData = imageData {
+                img = UIImage(data:imageData)!
+            } else {
+                img = UIImage(named: "icon")!
+            }
             background.image = img
             cacheDic[videoId!] = img
         }
@@ -151,13 +172,5 @@ class MovieListViewController: UIViewController, UITableViewDelegate, UITableVie
         self.view.window?.layer.addAnimation(transition, forKey: nil)
         self.performSegueWithIdentifier("ToMovie", sender: self)
     }
-    
-    //ToMovieButton//
-//    @IBOutlet var toImageButton:UIButton!
-//    @IBAction func toImageButtonTapped(){
-//        let storyboard: UIStoryboard = self.storyboard!
-//        let nextView = storyboard.instantiateViewControllerWithIdentifier("image_mode") as! ImageViewController
-//        self.presentViewController(nextView, animated: true, completion: nil)
-//    }
 }
 

@@ -21,10 +21,15 @@ class FavoriteVideo: Video {
         let isExisting = isExistingVideo(video.videoId!)
         // add if not registered already
         if(!isExisting){
+            print("save video")
             let favoriteVideo = FavoriteVideo()
             favoriteVideo.videoId = video.videoId
             favoriteVideo.title  = video.title
             favoriteVideo.thumbnailURL = video.thumbnailURL
+            print(video.channelTitle)
+            print(video.publishedAt)
+            favoriteVideo.channelTitle = video.channelTitle
+            favoriteVideo.publishedAt = video.publishedAt
             try! realm.write{
                 realm.add(favoriteVideo)
             }
@@ -77,6 +82,8 @@ class FavoriteVideo: Video {
                 video.videoId = favoriteVideos[i].videoId
                 video.title = favoriteVideos[i].title
                 video.thumbnailURL = favoriteVideos[i].thumbnailURL
+                video.channelTitle = favoriteVideos[i].channelTitle
+                video.publishedAt = favoriteVideos[i].publishedAt
                 videos.append(video)
             }
             debugPrint(videos)
